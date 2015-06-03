@@ -1,0 +1,42 @@
+# This file is intended to be symlinked to $HOME/.config/git/config
+# Combine this with another config at $HOME/.gitconfig for system-specifics
+[user]
+    name = Anthony Perez
+    email = anthony@amazingant.com
+[github]
+    user = amazingant
+[core]
+    autocrlf = input
+    pager = less -S
+    editor = vim
+[format]
+    pretty = fuller
+[alias]
+    sb = status -sb
+    lg1 = log --graph --branches --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)-- %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    clearautotags = !git tag | grep AutoTag- | xargs git tag -d
+    tagg = !git tag | grep -v AutoTag-
+# diff aliases
+    d = diff
+    dif = diff
+    difff = diff
+    wd = diff --word-diff
+    swd = diff --staged --word-dif
+    sd = diff --staged
+# clear & diff aliases
+    cd = !clear && git diff
+    cwd = !clear && git wd
+    cds = !clear && git sd
+    cwds = !clear && git swd
+[push]
+    default = simple
+[color]
+    ui = auto
+[pull]
+    ff = only
+[annex]
+    backends = SHA512E
+[push]
+    default = current
+[gc]
+    reflogExpire = never
