@@ -10,3 +10,6 @@
 [submodule "vim/bundle/vim-gitgutter"]
 	path = vim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vim/bundle/vim-characterize"]
+	path = vim/bundle/vim-characterize
+	url = https://github.com/tpope/vim-characterize.git
