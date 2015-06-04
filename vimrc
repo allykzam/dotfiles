@@ -162,6 +162,8 @@ nnoremap ,u :GundoToggle<CR>
 let g:gundo_preview_height = 40         " give gundo some room for previewing
 let g:gundo_preview_bottom = 1
 
+" let airline know to use the powerline glyphs
+let g:airline_powerline_fonts = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color and syntax
