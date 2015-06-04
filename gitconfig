@@ -16,6 +16,9 @@
     lg1 = log --graph --branches --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)-- %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
     clearautotags = !git tag | grep AutoTag- | xargs git tag -d
     tagg = !git tag | grep -v AutoTag-
+    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\t=>\t\\2/' | sort
+    this = !git init && git commit --allow-empty -m \"Initial commit\"
+    cshow = !clear && git show
 # diff aliases
     d = diff
     dif = diff
