@@ -85,9 +85,8 @@ set shiftwidth=4                        " one tab = four spaces (autoindent)
 set softtabstop=4                       " one tab = four spaces (tab key)
 set shiftround                          " only indent to multiples of 4
 set smarttab
-set colorcolumn=+1                      " add a vertical bar at char 81; useful
-                                        " for keeping myself from going past 80,
-                                        " but apparently slows redrawing
+set colorcolumn=81                      " add a vertical bar at char 81; useful
+                                        " for keeping myself from going past 80
 
 " mouse
 set mousefocus                          " shift focus to window under the mouse
