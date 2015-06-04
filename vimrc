@@ -87,6 +87,7 @@ set shiftround                          " only indent to multiples of 4
 set smarttab
 set colorcolumn=81                      " add a vertical bar at char 81; useful
                                         " for keeping myself from going past 80
+highlight ColorColumn ctermbg=darkgray ctermfg=green
 
 " mouse
 set mousefocus                          " shift focus to window under the mouse
