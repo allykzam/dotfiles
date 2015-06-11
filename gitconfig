@@ -7,7 +7,7 @@
     user = amazingant
 [core]
     autocrlf = input
-    pager = less -S
+    pager = less -RSM
     editor = vim
 [format]
     pretty = fuller
