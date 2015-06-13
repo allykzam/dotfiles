@@ -1,4 +1,5 @@
-vim/backup
-vim/spell
-vim/swap
-vim/undo
+.vim/backup
+.vim/spell
+.vim/swap
+.vim/undo
+.config/fbterm
