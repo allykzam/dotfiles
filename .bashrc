@@ -11,7 +11,7 @@ function fbterm-wallpaper() {
     # Related: need to find a better way to do this; passing an eof in with the
     # letter Q to quit fbv works okay, but leaves a blank spot where the "q" was
     # entered.
-    TERMfbterm fbv -ciker "$1" << EOF
+    TERM=fbterm fbv -ciker "$1" << EOF
 q
 EOF
     # Show the cursor again
@@ -49,7 +49,6 @@ if [[ "$TERM" == "linux" ]] ; then
             exit
             ;;
         /dev/pts/[0-9]*)
-            echo "Hello???"
             # If on a pseudo-terminal, check to see if the TMUX var is set
             if [[ -n "$TMUX" ]] ; then
                 # If in tmux, just set TERM
