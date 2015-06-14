@@ -1,4 +1,3 @@
-echo "Hallo"
 # Function for running fbterm with a "wallpaper"
 function fbterm-wallpaper() {
     # Hide the cursor

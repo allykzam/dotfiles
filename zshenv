@@ -10,7 +10,6 @@ export PAGER=less
 # less -S stops auto-wrapping of long lines
 # less -M adds more verbose positioning info to less' output
 export LESS=RSM
-echo "Testing"
 # tell zsh to load its dot-files from the dotfiles repo if it exists
 if [[ -d "$HOME/GitHub/dotfiles/zsh" ]] ; then
     export ZDOTDIR="$HOME/GitHub/dotfiles/zsh"
