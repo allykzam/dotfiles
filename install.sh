@@ -52,7 +52,7 @@ fi
 if [ -e "/etc/systemd/logind.conf" ] ; then
     echo "Setting systemd to provide 10 ttys at startup..."
     # If the logind.conf file contains a line for how many virtual ttys to start
-    if grep -vq ^NAutoVTs=10 /etc/systemd/logind.conf ; then
+    if grep -q ^NAutoVTs=10 /etc/systemd/logind.conf ; then
         :
     elif grep -vq ^NAutoVTs /etc/systemd/logind.conf ; then
         # Replace the number of ttys with 10
