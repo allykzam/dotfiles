@@ -67,7 +67,7 @@ if [[ "$TERM" == "linux" ]] ; then
 fi
 
 # When running on OSX...
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" '==' "Darwin" ]; then
     # Reset the path with the gnubin stuff up-front so that the GNU version of
     # coreutils (thank-you, homebrew) gets used instead of OSX's BSD versions
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
