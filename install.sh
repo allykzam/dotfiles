@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # List of files/directories not to symlink
-nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh")
+nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh")
 
 # Things to install:
 tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "sed" "unzip" "less" "mono")
@@ -89,4 +89,11 @@ for file in $SCRIPTHOME/* ; do
         fi
     fi
 done
+
+echo "Linking zshenv..."
+if echo "$unameDetails" | grep -q ARCH ; then
+    sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "/etc/zsh/zshenv"
+elif echo "$unameDetails" | grep -q Darwin ; then
+    sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "/etc/zshenv"
+fi
 
