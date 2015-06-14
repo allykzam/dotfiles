@@ -78,19 +78,6 @@ fi
 # Add these so there's a place in the home directory to put binaries
 export PATH="$PATH:~/.local/bin:~/.local/lib"
 
-# Set-up the prompt to do the posh-git stuff
-posh_git_path="$HOME/GitHub/posh-git-bash/git-prompt.sh"
-posh_git_command='__git_ps1 "\u@\h:\w" "\\\$ "'
-posh_gitmode_command='__git_ps1 "\u@\h:\w" "-> "'
-normal_ps1='\u@\h:\w\$ '
-gitmode_ps1='\u@\h:\w-> '
-if [ -e "$posh_git_path" ]; then
-    source "$posh_git_path"
-    PROMPT_COMMAND="$posh_git_command"
-else
-    PS1="$normal_ps1"
-fi
-
 # Typo aliases for git
 alias got=git
 alias gti=git

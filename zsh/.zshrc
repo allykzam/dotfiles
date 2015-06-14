@@ -119,5 +119,6 @@ LSOPTS='-lahvF --time-style=long-iso'
 alias ls="ls $LSOPTS"
 alias ll="ls $LSOPTS | less -FX"
 
-
 source "$HOME/GitHub/dotfiles/allshrc.sh"
+
+PS1="%n@%m:%~$"
