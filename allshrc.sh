@@ -1,3 +1,4 @@
+echo "Hallo"
 # Function for running fbterm with a "wallpaper"
 function fbterm-wallpaper() {
     # Hide the cursor
@@ -50,7 +51,7 @@ if [[ "$TERM" == "linux" ]] ; then
             ;;
         /dev/pts/[0-9]*)
             # If on a pseudo-terminal, check to see if the TMUX var is set
-            if [[ -n "$TMUX" ]] ; then
+            if [[ "${TMUX:-}" != "" ]] ; then
                 # If in tmux, just set TERM
                 export TERM=fbterm
             else
@@ -91,9 +92,6 @@ else
     PS1="$normal_ps1"
 fi
 
-# Any command that starts with whitespace is kept out of the history
-declare -x HISTCONTROL=ignorespace
-
 # Typo aliases for git
 alias got=git
 alias gti=git
@@ -107,10 +105,5 @@ if [[ "${screen_term_name:-}" != "" ]] ; then
         cd "$HOME/GitHub/$screen_term_name"
     fi
     unset screen_term_name
-fi
-
-# If there's anything else machine-specific in .local, run it
-if [ -e "$HOME/.local/.bashrc" ] ; then
-    source "$HOME/.local/.bashrc"
 fi
 
