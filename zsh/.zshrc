@@ -84,6 +84,7 @@ setopt RM_STAR_WAIT             # make me wait 10s before I confirm a `rm *`
 
 
 #### Prompting
+setopt PROMPT_PERCENT
 
 
 #### Scripts and Functions
