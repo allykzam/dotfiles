@@ -4,3 +4,5 @@
 .vim/undo
 .config/fbterm
 .DS_Store
+.config/fontforge
+.config/NuGet
