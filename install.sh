@@ -6,8 +6,9 @@ set -euo pipefail
 nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store")
 
 # Things to install:
-tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "sed" "unzip" "less" "mono")
-linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh")
+tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono")
+linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh" "sed")
+osxtools=("gnu-sed")
 
 # OS information
 unameDetails=$(uname -a)
@@ -27,6 +28,7 @@ elif echo "$unameDetails" | grep -q Darwin ; then
     brew update
     brew upgrade
     pkgmanager="brew install"
+    tools=("${tools[@]}" "${osxtools[@]}")
 fi
 
 # If a command was selected, run it; if not, complain to the user
