@@ -3,3 +3,4 @@
 .vim/swap
 .vim/undo
 .config/fbterm
+.DS_Store
