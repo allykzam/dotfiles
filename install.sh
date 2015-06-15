@@ -101,10 +101,15 @@ for file in $SCRIPTHOME/* ; do
     fi
 done
 
-echo "Linking zshenv..."
+zshenvpath=""
 if echo "$unameDetails" | grep -q ARCH ; then
-    sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "/etc/zsh/zshenv"
+    zshenvpath="/etc/zsh/zshenv"
 elif echo "$unameDetails" | grep -q Darwin ; then
-    sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "/etc/zshenv"
+    zshenvpath="/etc/zshenv"
 fi
-
+if [ ! -e "$zshenvpath" ] ; then
+    echo "Symlinking zshenv"
+    sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "$zshenvpath"
+else
+    echo "Skipping zshenv"
+fi
