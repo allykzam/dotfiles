@@ -84,7 +84,16 @@ for file in $SCRIPTHOME/* ; do
         :
     else
         if [ -e "$HOME/$filename" ] ; then
-            echo "Skipping $filename; already exists"
+            linkpath="$(readlink "$HOME/$filename" || : )"
+            if [ "$linkpath" '==' "$file" ] ; then
+                echo "Skipping $filename; already up-to-date."
+            elif [ "$linkpath" '==' "" ] ; then
+                echo "File or folder exists for $filename; skipping"
+            else
+                echo "Fixing symlink for $filename"
+                rm "$HOME/$filename"
+                ln -s "$file" "$HOME/$filename"
+            fi
         else
             echo "Symlinking $filename"
             ln -s "$file" "$HOME/$filename"
