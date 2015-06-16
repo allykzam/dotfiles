@@ -121,4 +121,4 @@ alias ll="ls $LSOPTS | less -FX"
 
 source "$HOME/GitHub/dotfiles/allshrc.sh"
 
-PS1="%n@%m:%~$"
+PS1="%n@%m:%~$ "
