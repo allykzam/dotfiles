@@ -120,6 +120,10 @@ LSOPTS='-lahvF --time-style=long-iso'
 alias ls="ls $LSOPTS"
 alias ll="ls $LSOPTS | less -FX"
 
+# zsh's `dirs` command outputs like `ls` does; adding `-v` puts each directory
+# on its own line and gives them numbers
+alias dirs="dirs -v"
+
 # "load" colors?
 autoload -U colors
 colors
