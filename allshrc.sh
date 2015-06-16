@@ -33,7 +33,9 @@ if [[ "$TERM" == "linux" ]] ; then
             # use it; if not, check for a generic wallpaper.
             ttynum=$(tty)
             ttynum=${ttynum/\/dev\/tty/}
-            if [ -f "$HOME/.config/fbterm/wallpaper$ttynum.jpg" ]; then
+            if [ -d "$HOME/.config/fbterm/wallpaper/random" ] ; then
+                wallpaper="$(shuf -n1 -e $HOME/.config/fbterm/wallpaper/random/*.jpg)"
+            elif [ -f "$HOME/.config/fbterm/wallpaper$ttynum.jpg" ]; then
                 wallpaper="$HOME/.config/fbterm/wallpaper$ttynum.jpg"
             elif [ -f "$HOME/.config/fbterm/wallpaper.jpg" ]; then
                 wallpaper="$HOME/.config/fbterm/wallpaper.jpg"
