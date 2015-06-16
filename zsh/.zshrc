@@ -84,7 +84,8 @@ setopt RM_STAR_WAIT             # make me wait 10s before I confirm a `rm *`
 
 
 #### Prompting
-setopt PROMPT_PERCENT
+setopt PROMPT_PERCENT           # Enable special % expansions
+setopt PROMPT_SUBST             # Enable parameter/command/arithmetic expansion
 
 
 #### Scripts and Functions
@@ -119,6 +120,11 @@ LSOPTS='-lahvF --time-style=long-iso'
 alias ls="ls $LSOPTS"
 alias ll="ls $LSOPTS | less -FX"
 
+# "load" colors?
+autoload -U colors
+colors
+
 source "$HOME/GitHub/dotfiles/allshrc.sh"
 
-PS1="%n@%m:%~$ "
+source "$HOME/GitHub/dotfiles/zsh/posh-git-zsh.sh"
+
