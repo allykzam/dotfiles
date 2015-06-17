@@ -132,3 +132,20 @@ source "$HOME/GitHub/dotfiles/allshrc.sh"
 
 source "$HOME/GitHub/dotfiles/zsh/posh-git-zsh.sh"
 
+# use vi-mode
+bindkey -v
+# provide a visual-indicator on the right side of the screen so I know what the
+# friggin text mode is
+function zle-line-init zle-keymap-select {
+    local RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    local RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# fix the delete key on my mac
+if [ "$(uname)" = "Darwin" ] ; then
+    bindkey "^[[3~" delete-char
+    bindkey "^[3;5~" delete-char
+fi
