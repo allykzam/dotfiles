@@ -149,3 +149,11 @@ if [ "$(uname)" = "Darwin" ] ; then
     bindkey "^[[3~" delete-char
     bindkey "^[3;5~" delete-char
 fi
+
+# if there's anything machine-specific in .local, run it
+if [ -e "$HOME/.local/.zshrc" ] ; then
+    source "$HOME/.local/.zshrc"
+fi
+if [ -e "$HOME/.local/.allshrc" ] ; then
+    source "$HOME/.local/.allshrc"
+fi

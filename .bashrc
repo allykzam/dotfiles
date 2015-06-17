@@ -7,6 +7,9 @@ declare -x HISTCONTROL=ignorespace
 if [ -e "$HOME/.local/.bashrc" ] ; then
     source "$HOME/.local/.bashrc"
 fi
+if [ -e "$HOME/.local/.allshrc" ] ; then
+    source "$HOME/.local/.allshrc"
+fi
 
 
 # Set-up the prompt to do the posh-git stuff
