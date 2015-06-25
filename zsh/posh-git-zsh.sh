@@ -1,7 +1,9 @@
 # Set up fancy posh-git prompt in a zsh-friendly way
 git_prompt_status() {
-    local ref="$(command git symbolic-ref HEAD 2> /dev/null)" || \
-    local ref="$(command git rev-parse --short HEAD 2> /dev/null)" || return
+    local ref=""
+    ref="$(command git symbolic-ref HEAD 2> /dev/null)" || \
+    ref="$(command git describe --tags --exact-match HEAD 2> /dev/null)" || \
+    ref="$(command git rev-parse --short HEAD 2> /dev/null)" || return
 
     local INDEX="$(command git status --porcelain -b 2> /dev/null)"
 
