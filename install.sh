@@ -113,3 +113,15 @@ if [ ! -e "$zshenvpath" ] ; then
 else
     echo "Skipping zshenv"
 fi
+
+if echo "$unameDetails" | grep -q ARCH ; then
+    # Set-up the current user as a member of the "video" group so that
+    # they can access the framebuffer devices (otherwise fbterm will
+    # break on startup)
+    echo "Setting user $USER as a member of the video group for fbterm"
+    sudo gpasswd -a "$USER" video
+    # According to the arch wiki page on fbterm, this enables keyboard
+    # shortcuts for non-root users
+    echo "Adding capability to use keyboard shortcuts"
+    sudo setcap 'cap_sys_tty_config+ep' /usr/bin/fbterm
+fi
