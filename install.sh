@@ -6,7 +6,7 @@ set -euo pipefail
 nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store")
 
 # Things to install:
-tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono")
+tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono" "fontconfig")
 linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh" "sed")
 osxtools=("gnu-sed")
 
