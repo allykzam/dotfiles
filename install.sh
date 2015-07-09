@@ -125,3 +125,12 @@ if echo "$unameDetails" | grep -q ARCH ; then
     echo "Adding capability to use keyboard shortcuts"
     sudo setcap 'cap_sys_tty_config+ep' /usr/bin/fbterm
 fi
+
+echo "Setting-up submodules (so that vim plugins show up)"
+(
+    cd $(dirname $0)
+    git submodule update --init --recursive
+    echo "Setting up the vim-fsharp package so it works :)"
+    cd .vim/bundle/vim-fsharp
+    make
+)
