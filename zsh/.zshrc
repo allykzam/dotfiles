@@ -116,7 +116,7 @@ for command in find wget; alias $command="noglob $command"
 # ls -h -> human-friendly sizes, via powers of 1024
 # ls -v -> sort version numbers better?
 # ls -F -> add '/' on end of dirs, '*' on executables, etc.
-LSOPTS='-flahF --time-style=long-iso'
+LSOPTS='-lahvF --time-style=long-iso'
 alias ls="ls $LSOPTS"
 alias ll="ls $LSOPTS | less -FX"
 
