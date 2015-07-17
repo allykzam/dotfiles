@@ -95,3 +95,15 @@ if [[ "${screen_term_name:-}" != "" ]] ; then
     unset screen_term_name
 fi
 
+# Custom function for "sudo" so that we get a fun error message as a result
+local sudopath="$(which sudo)"
+sudo(){
+    $sudopath true
+    local sudoSuccess=$?
+    if [ $sudoSuccess -eq 0 ] ; then
+        $sudopath $@
+    else
+        echo "sudon't"
+    fi
+}
+
