@@ -1,5 +1,8 @@
 # Function for running fbterm with a "wallpaper"
 function fbterm-wallpaper() {
+    local wallpaper=$1
+    # Remove the image path from the arguments
+    shift
     # Hide the cursor
     tput civis
     # Run fbv with the following options:
@@ -11,15 +14,13 @@ function fbterm-wallpaper() {
     # Related: need to find a better way to do this; passing an eof in with the
     # letter Q to quit fbv works okay, but leaves a blank spot where the "q" was
     # entered.
-    TERM=fbterm fbv -ciker "$1" << EOF
+    TERM=fbterm fbv -ciker "$wallpaper" << EOF
 q
 EOF
     # Show the cursor again
     tput cnorm
-    # Remove the image path from the arguments
-    shift
     # Run fbterm with a background image, and set TERM; pass any remaining args
-    FBTERM_BACKGROUND_IMAGE=1 TERM=fbterm fbterm "$@"
+    CURRENT_WALLPAPER="$wallpaper" FBTERM_BACKGROUND_IMAGE=1 TERM=fbterm fbterm "$@"
 }
 
 # When running directly on the linux ttys
@@ -59,7 +60,7 @@ if [[ "$TERM" == "linux" ]] ; then
                 # If not in tmux yet, set TERM, fix white, and start tmux
                 export TERM=fbterm
                 echo -en "\e[3;7;255;255;255}"
-                tmux
+                CURRENT_WALLPAPER="${CURRENT_WALLPAPER:-}" tmux
                 # Exit bash after tmux closes
                 exit
             fi
