@@ -24,7 +24,7 @@
     dif = diff
     difff = diff
     wd = diff --word-diff
-    swd = diff --staged --word-dif
+    swd = diff --staged --word-diff
     sd = diff --staged
 # clear & diff aliases
     cd = !clear && git diff
