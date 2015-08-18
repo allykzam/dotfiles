@@ -79,7 +79,7 @@ if [ "$(uname)" '==' "Darwin" ]; then
 fi
 
 # Add these so there's a place in the home directory to put binaries
-export PATH="$PATH:~/.local/bin:~/.local/lib"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/lib"
 
 # Typo aliases for git
 alias got=git
