@@ -32,15 +32,26 @@
     cwd = !clear && git wd
     cds = !clear && git sd
     cwds = !clear && git swd
-[push]
-    default = simple
 [color]
     ui = auto
 [pull]
     ff = only
-[annex]
-    backends = SHA512E
+    rebase = false
 [push]
     default = current
+[merge]
+    ff = false
+[status]
+    showUntrackedFiles = all
+[tag]
+    sort = version:refname
+[versionsort]
+# I typically only use the `-beta` suffix, but here's some extras anyway
+    prereleaseSuffix = -alpha
+    prereleaseSuffix = -beta
+    prereleaseSuffic = -pre
+    prereleaseSuffic = -rc
+[annex]
+    backends = SHA512E
 [gc]
     reflogExpire = never
