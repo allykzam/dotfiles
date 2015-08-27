@@ -9,6 +9,7 @@
     autocrlf = input
     pager = less -RSM
     editor = vim
+    whitespace = trailing-space,space-before-tab,tab-in-indent,cr-at-eol,tabwidth=4
 [format]
     pretty = fuller
 [alias]
