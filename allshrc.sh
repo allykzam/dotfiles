@@ -108,3 +108,5 @@ sudo(){
     fi
 }
 
+# Alias for the logrepos script
+alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
