@@ -20,6 +20,9 @@
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\t=>\t\\2/' | sort
     this = !git init && git commit --allow-empty -m \"Initial commit\"
     cshow = !clear && git show
+# "sync" pulls then pushes; I do this frequently to get changes from GitHub to
+# other servers where a git remote has multiple URL entries
+    sync = !git pull && git push && git push --tags
 # diff aliases
     d = diff
     dif = diff
