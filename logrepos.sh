@@ -2,7 +2,7 @@
 
 name=$(git config --get user.name)
 
-for dir in *
+for dir in GitHub/*
 do
     (
         cd "$dir" 2>/dev/null
