@@ -20,6 +20,8 @@
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\t=>\t\\2/' | sort
     this = !git init && git commit --allow-empty -m \"Initial commit\"
     cshow = !clear && git show
+# In case of fire, run this and then leave the building ;)
+    fire = !~/GitHub/git-fire/git-fire fire
 # "sync" pulls then pushes; I do this frequently to get changes from GitHub to
 # other servers where a git remote has multiple URL entries
     sync = !git pull && git push && git push --tags
