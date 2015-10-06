@@ -97,7 +97,7 @@ if [[ "${screen_term_name:-}" != "" ]] ; then
 fi
 
 # Custom function for "sudo" so that we get a fun error message as a result
-local sudopath="$(which sudo)"
+sudopath="$(which sudo)"
 sudo(){
     $sudopath true
     local sudoSuccess=$?
