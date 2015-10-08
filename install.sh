@@ -134,3 +134,8 @@ echo "Setting-up submodules (so that vim plugins show up)"
     cd .vim/bundle/vim-fsharp
     make
 )
+
+if echo "$unameDetails" | grep -q Darwin ; then
+    echo "Disabling bash sessions, because OSX 10.11 enabled them"
+    touch ~/.bash_sessions_disable
+fi
