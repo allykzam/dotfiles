@@ -147,7 +147,11 @@ tmuxgit(){
 
         # Otherwise, start tmux
         else
-            TMUXGIT=1 tmux
+            if [[ "${1:-}" == "" ]]; then
+                TMUXGIT=1 tmux
+            else
+                TMUXGIT=1 tmux -L "${1:-}"
+            fi
         fi
 
     elif [[ "${TMUXGIT:-}" == "2" ]]; then
