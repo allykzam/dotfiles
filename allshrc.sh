@@ -110,3 +110,78 @@ sudo(){
 
 # Alias for the logrepos script
 alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
+
+# Function for starting tmux and configuring it for git on different machines
+#
+# This currently chooses its setup based on the console size, so that, e.g., all
+# of my *nix boxes running fbterm with the same screen resolution will get the
+# same configuration, while allowing my work machine can get a different one (I
+# keep Terminal.app open on a 1920x1080 monitor rotated portrait at work).
+tmuxgit(){
+    # This function has X stages:
+    #
+    # Stage 1 starts tmux
+    #
+    # Stage 2 configures panes based on the console size
+    #
+    # Stage 3 changes directory to the target location
+
+    # If TMUXGIT isn't set yet, move to stage 1
+    if [[ "${TMUXGIT:-}" == "" ]]; then
+        export TMUXGITPATH="$(pwd)"
+
+        # If the user gave an argument, and it's contents matches the name of a
+        # directory under ~/GitHub, then use that as the target path instead of
+        # the current directory
+        if [[ "${1:-}" != "" ]]; then
+            if [ -d "$HOME/GitHub/${1:-}" ]; then
+                export TMUXGITPATH="$HOME/GitHub/${1:-}"
+            fi
+        fi
+
+        export TMUXGITSIZE="$(stty size)"
+        # If already running under tmux, just set TMUXGIT=1 and start over
+        if [[ "${TMUX:-}" != "" ]]; then
+            export TMUXGIT=1
+            tmuxgit
+
+        # Otherwise, start tmux
+        else
+            TMUXGIT=1 tmux
+        fi
+
+    elif [[ "${TMUXGIT:-}" == "2" ]]; then
+        cd "$TMUXGITPATH"
+        export TMUXGIT=3
+
+    # If stage 1 just finished, start stage 2 by creating new panes and then
+    # setting TMUXGIT=2 (set it after creating a new pane so that each pane
+    # has to run through this too
+    elif [[ "${TMUXGIT:-}" == "1" ]]; then
+        # System-specifics here:
+
+        # This is my 1920x1080 monitor in portrait orientation at work
+        if [[ "${TMUXGITSIZE:-}" == "131 150" ]]; then
+            if [[ "${TMUX_PANE:-}" == "%0" ]]; then
+                tmux split-window -v
+                tmux resize-pane -D 19
+
+            elif [[ "${TMUX_PANE:-}" == "%1" ]]; then
+                tmux split-window -v
+                tmux resize-pane -D 7
+
+            elif [[ "${TMUX_PANE:-}" == "%2" ]]; then
+                tmux select-pane -t 0
+            fi
+        fi
+
+        export TMUXGIT=2
+        tmuxgit
+    fi
+}
+
+# If the shell just started and is partway through configuring the tmuxgit
+# stuff, start it back up
+if [[ "${TMUXGIT:-}" != "" ]]; then
+    tmuxgit
+fi
