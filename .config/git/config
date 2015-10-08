@@ -60,3 +60,5 @@
     backends = SHA512E
 [gc]
     reflogExpire = never
+[stash]
+    showPatch = true
