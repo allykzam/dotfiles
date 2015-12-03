@@ -139,3 +139,9 @@ if echo "$unameDetails" | grep -q Darwin ; then
     echo "Disabling bash sessions, because OSX 10.11 enabled them"
     touch ~/.bash_sessions_disable
 fi
+
+if [ ! -d "$HOME/GitHub/posh-git-sh" ] ; then
+    echo "Cloning posh-git-sh from GitHub"
+    cd "$HOME/GitHub"
+    git clone github.com:amazingant/posh-git-sh.git || echo "Could not clone posh-git-sh"
+fi
