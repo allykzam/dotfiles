@@ -61,8 +61,8 @@ setopt HIST_EXPIRE_DUPS_FIRST   # removes duplicate history entries from the
                                 # this doesn't matter when HISTSIZE=SAVEHIST,
                                 # but for some machines HISTSIZE>SAVEHIST due to
                                 # memory:disk ratio, etc.
-setopt NO_HIST_IGNORE_ALL_DUPS  # always write commands to the history, even if
-setopt NO_HIST_IGNORE_DUPS      # it's a duplicate of an earlier command
+setopt HIST_IGNORE_ALL_DUPS     # always write commands to the history, even if
+setopt HIST_IGNORE_DUPS         # it's a duplicate of an earlier command
 setopt HIST_IGNORE_SPACE        # adding a space before a command keeps it out
                                 # of the history
 setopt NO_HIST_NO_FUNCTIONS     # would keep function definitions out of history
