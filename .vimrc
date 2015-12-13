@@ -191,3 +191,5 @@ autocmd BufReadPost COMMIT_* call setpos('.', [0, 1, 1, 0])
 " set all `text` files to have a width of 80 characters
 autocmd FileType text setlocal textwidth=80
 autocmd FileType markdown setlocal textwidth=80
+
+autocmd BufRead,BufNewFile *.asm set filetype=nasm
