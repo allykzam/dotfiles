@@ -2,27 +2,6 @@
 " changes the behavior of other options
 set nocompatible
 
-" this section stolen from @eevee's .vimrc; see eevee/rc on GitHub for more
-" info :)
-" set xterm title, and inform vim of screen/tmux's syntax for doing the same
-set titlestring=vim\ %{expand(\"%t\")}
-if &term =~ "^screen"
-    " pretend this is xterm. it probably is anyway, but if term is left as
-    " `screen`, vim doesn't understand ctrl-arrow.
-    if &term == "screen-256color"
-        set term=xterm-256color
-    else
-        set term=xterm
-    endif
-
-    " gotta set these *last*, since `set term` resets everything
-    set t_ts=k
-    set t_fs=\
-endif
-set title
-
-
-
 " UI
 set showtabline=2                       " always show tab bar at top
 set laststatus=2                        " always show status line at bottom
