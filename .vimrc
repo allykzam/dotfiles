@@ -172,3 +172,6 @@ autocmd FileType text setlocal textwidth=80
 autocmd FileType markdown setlocal textwidth=80
 
 autocmd BufRead,BufNewFile *.asm set filetype=nasm
+
+" XAML files should be processed as XML
+autocmd BufNewFile,BufRead *.xaml set filetype=xml
