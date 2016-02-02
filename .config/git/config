@@ -63,3 +63,5 @@
     reflogExpire = never
 [stash]
     showPatch = true
+[transfer]
+    fsckobjects = true
