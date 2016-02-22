@@ -6,3 +6,7 @@
 .DS_Store
 .config/fontforge
 .config/NuGet
+.config/nvim/backup
+.config/nvim/spell
+.config/nvim/swap
+.config/nvim/undo
