@@ -12,9 +12,6 @@ set spell                               " enable spell-check
                                         " use the `zg` command to add the word
                                         " under the cursor to the dictionary
 set background=light                    " I don't like vim's dark colors :[
-set cursorline                          " highlight current line
-" custom styling for the above, sets line to bold & underlin
-hi CursorLine term=bold,underline cterm=bold,underline
 " add highlighting for trailing whitespace
 highlight ExtraWhitespace ctermbg=red
 match ExtraWhitespace /\s\+$/
