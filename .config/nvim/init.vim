@@ -38,11 +38,11 @@ set foldlevel=99
 set backspace=indent,eol,start          " allow backspace/DEL over indentation,
                                         " line endings, and line beginnings
 set backup                              " enable backups
-set backupdir=~/.vim/backup             " hide backup files here
+set backupdir=~/.config/nvim/backup     " hide backup files here
 set backupext=.bak                      " add this extension
 set undofile                            " enable persistent-undo
-set undodir=~/.vim/undo                 " dump undo files in a dir I don't see
-set directory=~/.vim/swap               " hide swap files here
+set undodir=~/.config/nvim/undo         " dump undo files in a dir I don't see
+set directory=~/.config/nvim/swap       " hide swap files here
 
 
 " file encoding info
