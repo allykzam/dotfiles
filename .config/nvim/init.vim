@@ -19,7 +19,6 @@ set matchtime=2                         " x0.1s to highlight matching parens
 set showcmd                             " display incomplete commands
 set equalalways                         " make multiple windows the same size on
                                         " splitting or cloning windows
-set t_Co=256                            " force 256 colors
 set listchars=tab:↹·,extends:⇉,precedes:⇇,trail:␠,nbsp:␣,trail:░
                                         " show invisible characters
 set showbreak=↳\                        " show this at start of wrapped lines
