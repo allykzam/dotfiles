@@ -8,7 +8,7 @@
 [core]
     autocrlf = input
     pager = less -RSM
-    editor = vim
+    editor = TERM=xterm-256color nvim
     whitespace = trailing-space,space-before-tab,tab-in-indent,cr-at-eol,tabwidth=4
 [format]
     pretty = fuller
