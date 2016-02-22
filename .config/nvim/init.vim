@@ -1,7 +1,3 @@
-" use Vim settings, rather than Vi settings; this needs to be first because it
-" changes the behavior of other options
-set nocompatible
-
 " UI
 set showtabline=2                       " always show tab bar at top
 set laststatus=2                        " always show status line at bottom
