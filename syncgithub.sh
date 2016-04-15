@@ -1,5 +1,63 @@
 #!/bin/bash
 
+homepath="$(git config --get github-sync.homepath)"
+
+function syncRepo() {
+    local repoName="$1"
+    if [ ! -d "$repoName" ] ; then
+        repoName="$HOME/GitHub/$repoName"
+    fi
+    if [ ! -d "$repoName" ] ; then
+        echo "Can't find repo '$1'"
+        exit 1
+    fi
+    (
+        echo "Moving to $repoName"
+        cd "$repoName"
+        for remote in $(git remote)
+        do
+            (
+                if [[ "$remote" == "origin" ]] ; then
+                    echo
+                    echo "Fetching origin..."
+                elif [[ "$remote" == "upstream" ]] ; then
+                    echo
+                    echo "Fetching upstream..."
+                else
+                    break
+                fi
+                local homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+                if [ "$homerepo" == "" ] ; then
+                    echo "The $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
+                    break
+                fi
+
+                git fetch "$remote"
+                if [ $? -ne 0 ] ; then echo "Fetch failed"; break; fi
+                git fetch "$remote" --tags
+                git fetch "$remote" --prune
+
+                echo "Pushing data from $remote to the backup system"
+                git push --quiet "$homepath$homerepo" refs/remotes/$remote/*:refs/heads/*
+                if [ $? -ne 0 ] ; then
+                    echo "Can't push to backup system; either the connection failed, or this repository doesn't exist there."
+                    echo "There should be a bare repositor located at $homepath$homerepo"
+                    break
+                fi
+
+                git push --quiet "$homepath$homerepo" --tags
+            )
+        done
+    )
+}
+
+
+targetRepo="${1:-}"
+if [ ! "$targetRepo" == "" ] ; then
+    syncRepo "$targetRepo"
+    exit 0
+fi
+
 (
     cd "$HOME/GitHub"
     IFS=$'\n\t'
@@ -27,7 +85,6 @@
     fi
 )
 
-homepath="$(git config --get github-sync.homepath)"
 
 (
     cd "$HOME/GitHub"
@@ -37,46 +94,7 @@ homepath="$(git config --get github-sync.homepath)"
             if [ -d "$repo" ] ; then
                 echo
                 echo
-                echo "Moving to $repo"
-                cd "$repo"
-                if [ ! -e .git ] ; then
-                    echo "$repo isn't a git repository"
-                    break
-                fi
-                for remote in $(git remote)
-                do
-                    (
-                        if [[ "$remote" == "origin" ]] ; then
-                            echo
-                            echo "Fetching origin..."
-                        elif [[ "$remote" == "upstream" ]] ; then
-                            echo
-                            echo "Fetching upstream..."
-                        else
-                            break
-                        fi
-                        homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2 | cut -d ' ' -f 1)"
-                        if [ "$homerepo" == "" ] ; then
-                            echo "The $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
-                            break
-                        fi
-
-                        git fetch "$remote"
-                        if [ $? -ne 0 ] ; then echo "Fetch failed"; break; fi
-                        git fetch "$remote" --tags
-                        git fetch "$remote" --prune
-
-                        echo "Pushing data from $remote to the backup system"
-                        git push --quiet "$homepath$homerepo" refs/remotes/$remote/*:refs/heads/*
-                        if [ $? -ne 0 ] ; then
-                            echo "Can't push to backup system; this repository likely doesn't exist there"
-                            echo "There should be a bare repository located at $homepath$homerepo"
-                            break
-                        fi
-
-                        git push --quiet "$homepath$homerepo" --tags
-                    )
-                done
+                syncRepo "$repo"
             fi
         )
     done
