@@ -1,7 +1,10 @@
 # Function for running fbterm with a "wallpaper"
 function fbterm-wallpaper() {
-    local wallpaper=$1
+    local wallpaper="$1"
     # Remove the image path from the arguments
+    shift
+    # Remove the TTY path from the arguments
+    local old_tty="$1"
     shift
     # Hide the cursor
     tput civis
@@ -20,7 +23,7 @@ EOF
     # Show the cursor again
     tput cnorm
     # Run fbterm with a background image, and set TERM; pass any remaining args
-    CURRENT_WALLPAPER="$wallpaper" FBTERM_BACKGROUND_IMAGE=1 TERM=fbterm fbterm "$@"
+    OLD_TTY="$old_tty" CURRENT_WALLPAPER="$wallpaper" FBTERM_BACKGROUND_IMAGE=1 TERM=fbterm fbterm "$@"
 }
 
 # When running directly on the linux ttys
@@ -44,9 +47,9 @@ if [[ "$TERM" == "linux" ]] ; then
                 wallpaper=""
             fi
             if [[ "$wallpaper" != "" ]]; then
-                fbterm-wallpaper "$wallpaper" "$@"
+                fbterm-wallpaper "$wallpaper" "$(tty)" "$@"
             else
-                TERM=fbterm fbterm
+                OLD_TTY="$(tty)" TERM=fbterm fbterm
             fi
             # After fbterm exits, exit bash too
             exit
@@ -60,9 +63,9 @@ if [[ "$TERM" == "linux" ]] ; then
                 # If not in tmux yet, set TERM, fix white, and start tmux
                 export TERM=fbterm
                 echo -en "\e[3;7;255;255;255}"
-                CURRENT_WALLPAPER="${CURRENT_WALLPAPER:-}" tmux
-                # Exit bash after tmux closes
-                exit
+#                CURRENT_WALLPAPER="${CURRENT_WALLPAPER:-}" tmux
+#                # Exit bash after tmux closes
+#                exit
             fi
             ;;
         *)
@@ -167,7 +170,11 @@ tmuxgit(){
     elif [[ "${TMUXGIT:-}" == "1" ]]; then
         # System-specifics here:
 
-        # This is my 1920x1080 monitor in portrait orientation at work
+        # This is my 1920x1080 monitor in portrait orientation at work. It gets
+        # three panes; a large top pane for `git diff` and `git lg1`, a smaller
+        # pane that I usually use for `git commit`, and then an even smaller one
+        # that I use for `git commit` when I find myself needing `git lg1` up
+        # top /and/ `git diff` in the middle pane. Weird, but it works for me.
         if [[ "${TMUXGITSIZE:-}" == "131 150" ]]; then
             if [[ "${TMUX_PANE:-}" == "%0" ]]; then
                 tmux split-window -v
@@ -180,6 +187,25 @@ tmuxgit(){
             elif [[ "${TMUX_PANE:-}" == "%2" ]]; then
                 tmux select-pane -t 0
             fi
+
+        # This is an old Dell laptop I found at a thrift store for about $20?
+        # Circa 2003, it's running a Pentium 4M and has a screen-size of
+        # 1280x800. Works well enough for little things. It gets two panes
+        # side-by-side, where the left one is for `git lg1` and `git diff`, and
+        # the right one is for `git commit`. Not sure what to do with the extra
+        # vertical space just yet? At any rate, I also only want this setup on
+        # a particular tty (I use 10 of them on that system). The rest of my
+        # ttys are likely to have neovim/vim open, which has its own
+        # split-screen abilities.
+        elif [[ "${TMUXGITSIZE:-}" == "66 213" && "${OLD_TTY:-}" == "/dev/tty1" ]]; then
+            if [[ "${TMUX_PANE:-}" == "%0" ]]; then
+                tmux split-window -h
+                tmux resize-pane -R 20
+            elif [[ "${TMUX_PANE:-}" == "%1" ]]; then
+                tmux select-pane -t 0
+            fi
+        else
+            echo "Uhh, your screen size isn't set-up yet?"
         fi
 
         export TMUXGIT=2
