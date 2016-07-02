@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # List of files/directories not to symlink
-nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store" "logrepos.sh")
+nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store" "logrepos.sh" "gpg.conf")
 
 # Things to install:
 tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono" "fontconfig")
