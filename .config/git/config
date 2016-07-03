@@ -39,6 +39,7 @@
     cwd = !clear && git wd
     cds = !clear && git sd
     cwds = !clear && git swd
+    close = merge --gpg-sign
 [color]
     ui = auto
 [pull]
