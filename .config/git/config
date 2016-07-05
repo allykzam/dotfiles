@@ -20,7 +20,7 @@
     tagg = !git tag | grep -v AutoTag-
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\t=>\t\\2/' | sort
     this = !git init && git commit --allow-empty -m \"Initial commit\"
-    cshow = !clear && git show
+    cshow = !clear && git show --show-signature
     ls-cached-ignored = ls-files --cached --ignored --exclude-standard
 # In case of fire, run this and then leave the building ;)
     fire = !~/GitHub/git-fire/git-fire fire
