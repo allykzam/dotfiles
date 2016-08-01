@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+url="$2"
+
+z40=000000000000000000000000000000
+
+IFS=' '
+while read -r local_ref local_sha remote_ref remote_sha
+do
+    if [ "$local_sha" != $z40 ]
+    then
+        if [ "$remote_sha" != $z40 ]
+        then
+            case "$local_ref" in
+                "refs/heads/master" | "refs/heads/dev")
+                    if [[ "$url" == *"github.com"* ]]
+                    then
+                        git verify-commit "$local_sha" > /dev/null
+                        if [ $? = 1 ]
+                        then
+                            echo "Cannot push unsigned commits to dev or master"
+                            exit 1
+                        fi
+                    fi
+                    ;;
+                *)
+                    ;;
+            esac
+        fi
+    fi
+done
+
+exit 0
