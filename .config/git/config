@@ -40,7 +40,7 @@
     cwd = !clear && git wd
     cds = !clear && git sd
     cwds = !clear && git swd
-    close = merge --gpg-sign
+    close = !~/.config/git/close-cmd.sh
 [color]
     ui = auto
 [pull]
