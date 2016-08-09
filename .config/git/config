@@ -41,7 +41,7 @@
     cds = !clear && git sd
     cwds = !clear && git swd
     close = !~/.config/git/close-cmd.sh
-    notes = !~/.config/git/notes-cmd.sh
+    relnotes = !~/.config/git/notes-cmd.sh
 [color]
     ui = auto
 [pull]
