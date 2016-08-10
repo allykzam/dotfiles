@@ -11,6 +11,10 @@ do
     then
         notes="$file"
     fi
+    if [[ "$file" == *" \"Release Notes.txt\""* ]]
+    then
+        notes="   Release Notes.txt"
+    fi
     if [[ "$file" == *" Source/"* && "$file" == *"/RELEASE_NOTES.md"* ]]
     then
         project=$(dirname "$file")
