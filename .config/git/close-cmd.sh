@@ -27,6 +27,6 @@ then
     fi
 fi
 
-git merge "$branch" --gpg-sign --no-edit -m "Merge \"$1\" into \"$(git rev-parse --abbrev-ref HEAD)\"
+git merge "$branch" --gpg-sign --no-edit -m "Merge \"$branch\" into \"$(git rev-parse --abbrev-ref HEAD)\"
 
 Closes #$issue"
