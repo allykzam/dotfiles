@@ -144,6 +144,9 @@ let g:gundo_preview_bottom = 1
 " let airline know to use the powerline glyphs
 let g:airline_powerline_fonts = 1
 
+" do not create a netrwhist file
+let g:netrw_dirhistmax = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color and syntax
 
