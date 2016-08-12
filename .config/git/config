@@ -42,6 +42,7 @@
     cwds = !clear && git swd
     close = !~/.config/git/close-cmd.sh
     relnotes = !~/.config/git/notes-cmd.sh
+    issue = !~/.config/git/issue-cmd.sh
 [color]
     ui = auto
 [pull]
