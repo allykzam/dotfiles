@@ -4,6 +4,12 @@ url="$2"
 
 z40=000000000000000000000000000000
 
+# Do not check the commit(s) being pushed if this setting is set to "allow"
+if [[ "$(git config  --get github.unsigned-pushes)" == "allow" ]]
+then
+    exit 0
+fi
+
 IFS=' '
 while read -r local_ref local_sha remote_ref remote_sha
 do
