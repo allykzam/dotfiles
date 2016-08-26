@@ -39,6 +39,8 @@ done
 
 CHOICE=$(dialog --clear --menu "Select a GitHub issue to start an issue for:" 20 150 20 "${options[@]}" 2>&1 >/dev/tty)
 
+clear
+
 if [ "$CHOICE" != "" ]; then
     git checkout -b "issue/$CHOICE"
 fi
