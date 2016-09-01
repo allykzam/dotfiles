@@ -1,6 +1,6 @@
 #!/bin/bash
 
-homepath="$(git config --get github-sync.homepath)"
+homepath="$(git config --get github.sync-homepath)"
 
 function syncRepo() {
     local repoName="$1"
