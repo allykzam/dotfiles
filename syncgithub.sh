@@ -68,7 +68,7 @@ fi
         pageNumber=1
         echo "Getting page $pageNumber of your GitHub repositories"
         jsonData="$(curl -s https://api.github.com/user/repos?access_token=$user_token | grep full_name | cut -d ':' -f 2 | cut -d '"' -f 2)"
-        while [ ${#jsonData} -gt 255 ] ;
+        while [ ${#jsonData} -gt 1 ] ;
         do
             for ghRepo in $jsonData
             do
