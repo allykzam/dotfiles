@@ -114,6 +114,11 @@ sudo(){
     fi
 }
 
+# Calls grep and passes the -i flag, to make it case insensitive
+grepi(){
+    grep -i $@
+}
+
 # Alias for the logrepos script
 alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
 
