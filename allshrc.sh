@@ -119,6 +119,15 @@ grepi(){
     grep -i $@
 }
 
+# Handle setup of ssh-agent; otherwise on macOS the system-default ssh-agent is
+# used (yuck!)
+if ! pgrep -u $USER ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh/ssh-agent-config
+fi
+if [[ "${SSH_AGENT_PID:-}" == "" ]]; then
+    eval $(<~/.ssh/ssh-agent-config)
+fi
+
 # Alias for the logrepos script
 alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
 
