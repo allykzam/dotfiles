@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # List of files/directories not to symlink
-nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store" "logrepos.sh" "gpg.conf")
+nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store" "logrepos.sh" "gpg.conf" "gpg-agent.conf")
 
 # Things to install:
 tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono" "fontconfig")
@@ -112,6 +112,17 @@ if [ ! -e "$zshenvpath" ] ; then
     sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "$zshenvpath"
 else
     echo "Skipping zshenv"
+fi
+
+if [ ! -d "$HOME/.gnupg" ]; then
+    mkdir "$HOME/.gnupg"
+    chmod 700 "$HOME/.gnupg"
+fi
+if [ ! -e "$HOME/.gnupg/gpg.conf" ]; then
+    ln -s "$HOME/GitHub/dotfiles/gpg.conf" "$HOME/.gnupg/gpg.conf"
+fi
+if [ ! -e "$HOME/.gnupg/gpg-agent.conf" ]; then
+    ln -s "$HOME/GitHub/dotfiles/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
 fi
 
 if echo "$unameDetails" | grep -q ARCH ; then
