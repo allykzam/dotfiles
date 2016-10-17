@@ -81,6 +81,11 @@ if [[ "${TMUX:-}" == "" ]] ; then
                 git status > /dev/null 2>&1
                 if (! git diff-index --quiet HEAD) ; then
                     echo "Dirty worktree in GitHub/$(basename $dir)"
+                else
+                    branchName="$(git rev-parse --abbrev-ref HEAD)"
+                    if [[ "$branchName" =~ issue/.* ]]; then
+                        echo "On issue #$(basename $branchName) in GitHub/$(basename $dir)"
+                    fi
                 fi
             fi
         )
