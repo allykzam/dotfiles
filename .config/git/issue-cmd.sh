@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+gitDir=".git"
 if [ -d ".git" ]; then
     true
 else
-    git rev-parse --git-dir > /dev/null 2>&1
+    gitDir=$(git rev-parse --git-dir)
     if [ $? == 0 ]; then
         true
     else
@@ -29,16 +30,18 @@ function getData() {
     done
 }
 
-if [[ -d ".git/issues" ]]; then
-    rm -rf .git/issues
+if [[ -d "$gitDir/issues" ]]; then
+    rm -rf "$gitDir/issues"
 fi
-mkdir .git/issues
+mkdir "$gitDir/issues"
 
 getData
 
+echo "$gitDir"
+
 options=()
 index=0
-for issue in .git/issues/*; do
+for issue in "$gitDir"/issues/* ; do
     number=$(echo "$issue" | cut -d '/' -f 3) || true
     if [ "$number" != "" ]; then
         title=$(cat "$issue")
