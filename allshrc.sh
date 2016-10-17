@@ -72,6 +72,21 @@ if [[ "$TERM" == "linux" ]] ; then
     esac
 fi
 
+if [[ "${TMUX:-}" == "" ]] ; then
+    for dir in ~/GitHub/* ; do
+        (
+            cd "$dir"
+            gitDir=`git rev-parse --git-dir 2>&1 || true`
+            if [[ "$gitDir" == ".git" ]] ; then
+                git status > /dev/null 2>&1
+                if (! git diff-index --quiet HEAD) ; then
+                    echo "Dirty worktree in GitHub/$(basename $dir)"
+                fi
+            fi
+        )
+    done
+fi
+
 # When running on OSX...
 if [ "$(uname)" '==' "Darwin" ]; then
     # Reset the path with the gnubin stuff up-front so that the GNU version of
