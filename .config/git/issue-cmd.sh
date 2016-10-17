@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+if [ -d ".git" ]; then
+    true
+else
+    git rev-parse --git-dir > /dev/null 2>&1
+    if [ $? == 0 ]; then
+        true
+    else
+        echo "Current directory is not part of a git repository."
+        exit 1
+    fi
+fi
+
 user_token=$(git config --get github.access-token)
 github_origin=$(git remote -v | grep origin | grep github.com | grep fetch)
 repo_owner=$(echo "$github_origin" | cut -d ':' -f 2 | cut -d '/' -f 1)
