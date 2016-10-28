@@ -4,7 +4,7 @@ if [ -x /usr/libexec/path_helper ]; then
     eval `/usr/libexec/path_helper -s`
 fi
 
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER=less
 # less -R prints color escape codes directly to output
 # less -S stops auto-wrapping of long lines
