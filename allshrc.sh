@@ -72,7 +72,7 @@ if [[ "$TERM" == "linux" ]] ; then
     esac
 fi
 
-if [[ "${TMUX:-}" == "" ]] ; then
+if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
     for dir in ~/GitHub/* ; do
         (
             cd "$dir"
