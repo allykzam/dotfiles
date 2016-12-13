@@ -106,7 +106,7 @@ fi
 # local system, alias "strings" to it so that e.g. the `-e` flag will be
 # available.
 gstrings="$(which gstrings || true)"
-if [[ "${gstrings:-}" != "" ]; then
+if [[ "${gstrings:-}" != "" ]]; then
     alias "strings=$gstrings"
 fi
 
