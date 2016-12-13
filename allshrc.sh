@@ -101,6 +101,15 @@ if [ "$(uname)" '==' "Darwin" ]; then
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
+# The "g" stands for "good" because the macOS version of /usr/bin/strings should
+# be called "sstrings" (the "s" is for "sucks"). If "gstrings" exists on the
+# local system, alias "strings" to it so that e.g. the `-e` flag will be
+# available.
+gstrings="$(which gstrings || true)"
+if [[ "${gstrings:-}" != "" ]; then
+    alias "strings=$gstrings"
+fi
+
 # Add these so there's a place in the home directory to put binaries
 export PATH="$HOME/.local/bin:$HOME/.local/lib:$PATH"
 
