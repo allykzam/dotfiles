@@ -156,7 +156,7 @@ if [ "$(uname)" '==' "Darwin" ]; then
     gpg-connect-agent /bye
 else
     SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-    gpg-agent --daemon --pinentry-program /usr/bin/pinentry
+    gpg-agent --daemon --pinentry-program /usr/bin/pinentry > /dev/null 2>&1
 fi
 export SSH_AUTH_SOCK
 
