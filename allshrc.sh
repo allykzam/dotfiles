@@ -29,6 +29,8 @@ EOF
 # When running directly on the linux ttys
 if [[ "$TERM" == "linux" ]] ; then
     case $(tty) in
+        /dev/tty10)
+            ;;
         /dev/tty[0-9]*)
             # Try to turn on numlock, but make sure return code is 0 even if it
             # doesn't work.
