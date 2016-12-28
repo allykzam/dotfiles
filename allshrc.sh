@@ -149,9 +149,14 @@ grepi(){
 }
 
 # Use gpg-agent for ssh keys
-SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+if [ "$(uname)" '==' "Darwin" ]; then
+    SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.extra"
+    gpg-connect-agent /bye
+else
+    SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+    gpg-agent --daemon --pinentry-program /usr/bin/pinentry
+fi
 export SSH_AUTH_SOCK
-gpg-connect-agent /bye
 
 # Alias for the logrepos script
 alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
