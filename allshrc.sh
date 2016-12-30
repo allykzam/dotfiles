@@ -151,8 +151,8 @@ grepi(){
 }
 
 # Use gpg-agent for ssh keys
-if [ "$(uname)" '==' "Darwin" ]; then
-    SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.extra"
+if [[ "$(uname)" == "Darwin" ]]; then
+    SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
     gpg-connect-agent /bye
 else
     SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
