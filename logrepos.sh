@@ -1,8 +1,33 @@
 #!/bin/bash
 
 name=$(git config --get user.name)
+commits=""
+repos=0
 
-for dir in GitHub/*
+for dir in ~/GitHub/*
+do
+    data=$(
+        cd "$dir" || exit
+        if [ ! -e ".git" ]; then
+            exit
+        fi
+        log=$(git shortlog -s --author="$name" --since="$1")
+        log=${log/$name/}
+        if [ ! "$log" == "" ]; then
+            echo "$log -- $(basename $dir)"
+        fi
+    )
+    if [ ! "$data" == "" ]; then
+        repos=$((repos+1))
+        commits="$commits
+$data"
+    fi
+done
+
+echo "$repos repositories have changes since '$1':"
+echo "$commits"
+
+for dir in ~/GitHub/*
 do
     (
         cd "$dir" 2>/dev/null
