@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+for file in $(git diff --cached --name-only); do
+
+    if [[ "$(tail -c 1 "$file" | xxd | cut -d ' ' -f 2)" != "0a" ]] ; then
+        echo "File '$file' does not end with a line break."
+        exit 1
+    fi
+
+done
