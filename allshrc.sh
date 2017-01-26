@@ -76,6 +76,10 @@ fi
 
 if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
     header="WTree,  Issue #, Stash -- Repository"
+    RED='\033[0;31m'
+    GREEN='\033[1;32m'
+    BLUE='\033[1;34m'
+    NC='\033[0m'
     for dir in ~/GitHub/* ; do
         repo=$(
             cd "$dir"
@@ -87,7 +91,7 @@ if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
             print=0
             issues=""
             if (! git diff-index --quiet HEAD); then
-                issues="Dirty,"
+                issues="${RED}Dirty${NC},"
                 print=1
             else
                 issues="Clean,"
@@ -97,16 +101,22 @@ if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
             if [[ "$branchName" =~ issue/.* ]] ; then
                 branchName="#$(basename $branchName)"
                 print=1
+                declare -R6 branchName
+                issues="$issues [${GREEN}$branchName${NC}],"
+            else
+                declare -R6 branchName
+                issues="$issues [$branchName],"
             fi
-            declare -R6 branchName
-            issues="$issues [$branchName],"
 
             stashes="$(git stash list | wc -l | xargs)"
             if [[ "$stashes" != "0" ]] ; then
                 print=1
+                declare -R3 stashes
+                issues="$issues [${BLUE}$stashes${NC}]"
+            else
+                declare -R3 stashes
+                issues="$issues [$stashes]"
             fi
-            declare -R3 stashes
-            issues="$issues [$stashes]"
 
             output=""
             if [[ "$issues" != "" && "$print" == "1" ]] ; then
@@ -118,7 +128,7 @@ if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
                 echo "$header"
                 header=""
             fi
-            echo "$repo"
+            echo -e "$repo"
         fi
     done
 fi
