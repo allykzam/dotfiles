@@ -75,22 +75,51 @@ if [[ "$TERM" == "linux" ]] ; then
 fi
 
 if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
+    header="WTree,  Issue #, Stash -- Repository"
     for dir in ~/GitHub/* ; do
-        (
+        repo=$(
             cd "$dir"
             gitDir=`git rev-parse --git-dir 2>&1 || true`
-            if [[ "$gitDir" == ".git" ]] ; then
-                git status > /dev/null 2>&1
-                if (! git diff-index --quiet HEAD) ; then
-                    echo "Dirty worktree in GitHub/$(basename $dir)"
-                else
-                    branchName="$(git rev-parse --abbrev-ref HEAD)"
-                    if [[ "$branchName" =~ issue/.* ]]; then
-                        echo "On issue #$(basename $branchName) in GitHub/$(basename $dir)"
-                    fi
-                fi
+            if [[ "$gitDir" != ".git" ]] ; then
+                exit
+            fi
+
+            print=0
+            issues=""
+            if (! git diff-index --quiet HEAD); then
+                issues="Dirty,"
+                print=1
+            else
+                issues="Clean,"
+            fi
+
+            branchName="$(git rev-parse --abbrev-ref HEAD)"
+            if [[ "$branchName" =~ issue/.* ]] ; then
+                branchName="#$(basename $branchName)"
+                print=1
+            fi
+            declare -R6 branchName
+            issues="$issues [$branchName],"
+
+            stashes="$(git stash list | wc -l | xargs)"
+            if [[ "$stashes" != "0" ]] ; then
+                print=1
+            fi
+            declare -R3 stashes
+            issues="$issues [$stashes]"
+
+            output=""
+            if [[ "$issues" != "" && "$print" == "1" ]] ; then
+                echo "$issues -- $(basename $dir)"
             fi
         )
+        if [[ "$repo" != "" ]] ; then
+            if [[ "$header" != "" ]] ; then
+                echo "$header"
+                header=""
+            fi
+            echo "$repo"
+        fi
     done
 fi
 
