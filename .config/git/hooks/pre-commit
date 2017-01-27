@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+IFS=$'\n\t'
 for file in $(git diff --cached --name-only); do
 
     if [[ "$(tail -c 1 "$file" | xxd | cut -d ' ' -f 2)" != "0a" ]] ; then
