@@ -75,6 +75,7 @@ if [[ "$TERM" == "linux" ]] ; then
 fi
 
 function show_git_status() {
+    local header RED GREEN BLUE NC dir repo
     header="WTree,  Issue #, Stash -- Repository"
     RED='\033[0;31m'
     GREEN='\033[1;32m'
