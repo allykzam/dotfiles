@@ -80,49 +80,52 @@ if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
     GREEN='\033[1;32m'
     BLUE='\033[1;34m'
     NC='\033[0m'
+    function getStats() {
+        local dir gitDir print issues branchName stashes MATCH MBEGIN MEND
+
+        dir="$1"
+        cd "$dir" || exit
+        gitDir=$(git rev-parse --git-dir 2>&1 || true)
+        if [[ "$gitDir" != ".git" ]] ; then
+            exit
+        fi
+
+        print=0
+        issues=""
+        if (! git diff-index --quiet HEAD); then
+            issues="${RED}Dirty${NC},"
+            print=1
+        else
+            issues="Clean,"
+        fi
+
+        branchName="$(git rev-parse --abbrev-ref HEAD)"
+        if [[ "$branchName" =~ issue/.* ]] ; then
+            branchName="#$(basename "$branchName")"
+            print=1
+            declare -R6 branchName
+            issues="$issues [${GREEN}$branchName${NC}],"
+        else
+            declare -R6 branchName
+            issues="$issues [$branchName],"
+        fi
+
+        stashes="$(wc -l "${dir}.git/logs/refs/stash" 2>/dev/null | xargs | cut -d ' ' -f 1)"
+        if [[ "$stashes" != "0" && "$stashes" != "" ]] ; then
+            print=1
+            declare -R3 stashes
+            issues="$issues [${BLUE}$stashes${NC}]"
+        else
+            declare -R3 stashes
+            issues="$issues [  0]"
+        fi
+
+        if [[ "$issues" != "" && "$print" == "1" ]] ; then
+            echo "$issues -- $(basename "$dir")"
+        fi
+    }
     for dir in ~/GitHub/* ; do
-        repo=$(
-            cd "$dir"
-            gitDir=`git rev-parse --git-dir 2>&1 || true`
-            if [[ "$gitDir" != ".git" ]] ; then
-                exit
-            fi
-
-            print=0
-            issues=""
-            if (! git diff-index --quiet HEAD); then
-                issues="${RED}Dirty${NC},"
-                print=1
-            else
-                issues="Clean,"
-            fi
-
-            branchName="$(git rev-parse --abbrev-ref HEAD)"
-            if [[ "$branchName" =~ issue/.* ]] ; then
-                branchName="#$(basename $branchName)"
-                print=1
-                declare -R6 branchName
-                issues="$issues [${GREEN}$branchName${NC}],"
-            else
-                declare -R6 branchName
-                issues="$issues [$branchName],"
-            fi
-
-            stashes="$(git stash list | wc -l | xargs)"
-            if [[ "$stashes" != "0" ]] ; then
-                print=1
-                declare -R3 stashes
-                issues="$issues [${BLUE}$stashes${NC}]"
-            else
-                declare -R3 stashes
-                issues="$issues [$stashes]"
-            fi
-
-            output=""
-            if [[ "$issues" != "" && "$print" == "1" ]] ; then
-                echo "$issues -- $(basename $dir)"
-            fi
-        )
+        repo=$(getStats "$dir")
         if [[ "$repo" != "" ]] ; then
             if [[ "$header" != "" ]] ; then
                 echo "$header"
