@@ -74,7 +74,7 @@ if [[ "$TERM" == "linux" ]] ; then
     esac
 fi
 
-if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
+function show_git_status() {
     header="WTree,  Issue #, Stash -- Repository"
     RED='\033[0;31m'
     GREEN='\033[1;32m'
@@ -134,6 +134,10 @@ if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
             echo -e "$repo"
         fi
     done
+}
+
+if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
+    show_git_status
 fi
 
 # When running on OSX...
