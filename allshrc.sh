@@ -104,10 +104,19 @@ function show_git_status() {
         if [[ "$branchName" =~ issue/.* ]] ; then
             branchName="#$(basename "$branchName")"
             print=1
-            declare -R6 branchName
+            declare -R8 branchName
+            issues="$issues [${GREEN}$branchName${NC}],"
+        elif [[ "$branchName" =~ release/.* ]] ; then
+            if [[ "$branchName" =~ release/v.* ]] ; then
+                branchName="$(basename "$branchName")"
+            else
+                branchName="v$(basename "$branchName")"
+            fi
+            print=1
+            declare -R8 branchName
             issues="$issues [${GREEN}$branchName${NC}],"
         else
-            declare -R6 branchName
+            declare -L8 branchName
             issues="$issues [$branchName],"
         fi
 
