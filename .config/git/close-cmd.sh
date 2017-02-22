@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+IFS=$'\n\t'
+
+
 branch="$1"
 issue="$(basename "$branch")"
 
