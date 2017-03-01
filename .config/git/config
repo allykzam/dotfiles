@@ -12,6 +12,7 @@
     editor = nvim
     whitespace = trailing-space,space-before-tab,tab-in-indent,cr-at-eol,tabwidth=4
     hookspath = ~/.config/git/hooks
+    logAllRefUpdates = always
 [format]
     pretty = fuller
 [alias]
@@ -72,3 +73,5 @@
     fsckobjects = true
 [log]
     showSignature = true
+[protocol "http"]
+    allow = never
