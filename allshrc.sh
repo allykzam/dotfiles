@@ -85,6 +85,9 @@ function show_git_status() {
         local dir gitDir print issues branchName stashes MATCH MBEGIN MEND
 
         dir="$1"
+        if [ -f "$dir" ] ; then
+            exit
+        fi
         cd "$dir" || exit
         gitDir=$(git rev-parse --git-dir 2>&1 || true)
         if [[ "$gitDir" != ".git" ]] ; then
