@@ -31,8 +31,23 @@ elif echo "$unameDetails" | grep -q Darwin ; then
     tools=("${tools[@]}" "${osxtools[@]}")
 fi
 
+# If running on WSL on a Win10 box, assume the user is going to deal with
+# installing things themselves.
+if echo "$unameDetails" | grep -q Microsoft ; then
+    echo "You appear to be running bash on ubuntu on Windows on..."
+    echo "You will need to manually delete the file /etc/zsh/zshenv, and"
+    read -r p "install any missing packages. Have you done all of this? [y/N] " response
+    case $response in
+        [yY][eE][sS]|[yY])
+            echo "Continuing..."
+            ;;
+        *)
+            return
+            ;;
+    esac
+
 # If a command was selected, run it; if not, complain to the user
-if [ "$pkgmanager" == "" ] ; then
+elif [ "$pkgmanager" == "" ] ; then
     read -r -p "Unknown system. Continue? [y/N] " response
     case $response in
         [yY][eE][sS]|[yY])
@@ -104,10 +119,14 @@ done
 zshenvpath=""
 if echo "$unameDetails" | grep -q ARCH ; then
     zshenvpath="/etc/zsh/zshenv"
+elif echo "$unameDetails" | grep -q Microsoft ; then
+    zshenvpath="/etc/zsh/zshenv"
 elif echo "$unameDetails" | grep -q Darwin ; then
     zshenvpath="/etc/zshenv"
 fi
-if [ ! -e "$zshenvpath" ] ; then
+if [ "$zshenvpath" == "" ] ; then
+    echo "Unable to determine target zshenv path, skipping..."
+elif [ ! -e "$zshenvpath" ] ; then
     echo "Symlinking zshenv"
     sudo ln -s "$HOME/GitHub/dotfiles/zshenv" "$zshenvpath"
 else
