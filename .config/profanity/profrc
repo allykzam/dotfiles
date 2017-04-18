@@ -11,7 +11,7 @@ q=/quit
 afk=/away
 
 [presence]
-autoaway.mode=away
+autoaway.mode=off
 autoaway.check=true
 autoaway.awaymessage=Away from computer
 
