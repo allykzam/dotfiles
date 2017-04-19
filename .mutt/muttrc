@@ -6,6 +6,8 @@ set certificate_file = "~/.local/share/mutt/mutt_certs"
 
 # Use maildir by default
 set mbox_type = maildir
+# And cache headers to help speed up certain simple operations
+set header_cache = "~/.local/share/mutt/hcache/"
 
 # Alternate location for mailcap file...
 set mailcap_path = "~/.local/share/mutt/mailcap"
