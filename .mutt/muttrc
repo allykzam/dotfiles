@@ -1,0 +1,90 @@
+# Account info and macros for switching between them lives here
+source ~/.local/mutt/account_config
+
+# Use maildir by default
+set mbox_type = maildir
+
+# Alternate location for mailcap file...
+set mailcap_path = "~/.local/mutt/mailcap"
+# Use the configuration in the mailcap file to show HTML email
+auto_view text/html
+
+# My name! From address and signature are per-account, so they live elsewhere.
+set realname = "Anthony Perez"
+
+# Allow editing headers...
+set edit_headers
+# And do not prompt for the basic headers
+set autoedit
+
+# Beep when new mail comes in
+set beep_new
+
+# Do not try to "fix" the subject line when replying to an email with no subject
+iset empty_subject = "Re:"
+
+# Ask before quitting
+set quit = ask-yes
+
+# Custom format shows YYYY-MM-DD time format, and gives 25 chars for the "From"
+set index_format = "%4C %Z %[%Y-%m-%d] %-25.25L (%4c) %s"
+
+# Try to sort these headers first
+hdr_order Date To From Subject
+
+# Do not let me delete flagged messages
+set flag_safe = yes
+# Scroll one email at a time, vs by pages
+set menu_scroll = yes
+
+# Use the appropriate email address when replaying
+set use_envelope_from = yes
+
+# Threads!
+# Hide the subject in replies to threads, so long as the subject has not changed
+# meaningfully
+set hide_thread_subject
+# Controls how mutt detects threads. Turned on, mutt will only consider a
+# message to be part of a thread if it contains the appropriate headers. Turned
+# off (default), it goes by subject contents.
+#set strict_threads
+# Sort into threads! Because threads are nice.
+set sort = "threads"
+# Sort the threads in the index on each thread's most-recent received date,
+# rather than the thread's origin date. Otherwise, old threads that are still
+# active will be shown far into the past, behind potentially older messages.
+set sort_aux = "last-date-received"
+
+
+# Sidebar settings
+# Turn on the sidebar
+set sidebar_visible
+# Indent subdirectories a bit vs their parent directories
+set sidebar_folder_indent
+# And use this string as the indent
+set sidebar_indent_string = "  -> "
+# Omit the parent directory name from subdirectories
+set sidebar_short_path
+# Show folder name and new-mail count
+set sidebar_format = "%B %N"
+# Do not sort mailboxes; they are already in the order I want them in
+set sidebar_sort_method = "unsorted"
+
+
+# Colors! In moderation.
+# Show new messages in green
+color index green default "~N"
+# Show deleted messages in red
+color index red default "~D"
+
+
+# Stop skipping over things when pushing up/down arrows
+bind index <Up> previous-entry
+bind index <Down> next-entry
+
+
+# Alert me if I mention attachments, but do not actually attach anything
+set abort_noattach = ask-yes
+
+# Show a progress bar for slow operations
+color progress white red
