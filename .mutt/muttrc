@@ -21,7 +21,7 @@ set autoedit
 set beep_new
 
 # Do not try to "fix" the subject line when replying to an email with no subject
-iset empty_subject = "Re:"
+set empty_subject = "Re:"
 
 # Ask before quitting
 set quit = ask-yes
