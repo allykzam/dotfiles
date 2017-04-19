@@ -1,5 +1,8 @@
 # Account info and macros for switching between them lives here
 source ~/.local/mutt/account_config
+# And stash the certs file near the account info; some of my accounts require
+# accepting certificates that do not match up properly.
+set certificate_file = "~/.local/mutt/mutt_certs"
 
 # Use maildir by default
 set mbox_type = maildir
