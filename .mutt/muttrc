@@ -1,14 +1,14 @@
 # Account info and macros for switching between them lives here
-source ~/.local/mutt/account_config
+source ~/.local/share/mutt/account_config
 # And stash the certs file near the account info; some of my accounts require
 # accepting certificates that do not match up properly.
-set certificate_file = "~/.local/mutt/mutt_certs"
+set certificate_file = "~/.local/share/mutt/mutt_certs"
 
 # Use maildir by default
 set mbox_type = maildir
 
 # Alternate location for mailcap file...
-set mailcap_path = "~/.local/mutt/mailcap"
+set mailcap_path = "~/.local/share/mutt/mailcap"
 # Use the configuration in the mailcap file to show HTML email
 auto_view text/html
 
