@@ -21,6 +21,12 @@ auto_view text/html
 # But try to view plain-text emails before HTML emails
 alternative_order text/plain text/enriched text/html
 
+# Store mail aliases locally, so that my work/personal aliases do not get
+# committed to my "dotfiles" repo and pushed to GitHub for everyone to see
+set alias_file = "~/.local/share/mutt/aliases"
+set reverse_alias
+source $alias_file
+
 # My name! From address and signature are per-account, so they live elsewhere.
 set realname = "Anthony Perez"
 
