@@ -111,6 +111,9 @@ autocmd BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " tell vim that .md files are markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
+" tell vim that .muttrc files are...muttrc files?
+autocmd BufNewFile,BufReadPost *.muttrc set filetype=muttrc
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 
