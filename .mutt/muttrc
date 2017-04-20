@@ -18,6 +18,8 @@ set header_cache = "~/.local/share/mutt/hcache/"
 set mailcap_path = "~/.local/share/mutt/mailcap"
 # Use the configuration in the mailcap file to show HTML email
 auto_view text/html
+# But try to view plain-text emails before HTML emails
+alternative_order text/plain text/enriched text/html
 
 # My name! From address and signature are per-account, so they live elsewhere.
 set realname = "Anthony Perez"
