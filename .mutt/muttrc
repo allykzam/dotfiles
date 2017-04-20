@@ -1,5 +1,5 @@
 # Account info and macros for switching between them lives here
-source ~/.local/share/mutt/account_config
+source ~/.local/share/mutt/account_config.muttrc
 # And stash the certs file near the account info; some of my accounts require
 # accepting certificates that do not match up properly.
 set certificate_file = "~/.local/share/mutt/mutt_certs"
@@ -23,7 +23,7 @@ alternative_order text/plain text/enriched text/html
 
 # Store mail aliases locally, so that my work/personal aliases do not get
 # committed to my "dotfiles" repo and pushed to GitHub for everyone to see
-set alias_file = "~/.local/share/mutt/aliases"
+set alias_file = "~/.local/share/mutt/aliases.muttrc"
 set reverse_alias
 source $alias_file
 
