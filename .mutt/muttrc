@@ -26,8 +26,6 @@ set realname = "Anthony Perez"
 
 # Allow editing headers...
 set edit_headers
-# And do not prompt for the basic headers
-set autoedit
 
 # Beep when new mail comes in
 set beep_new
