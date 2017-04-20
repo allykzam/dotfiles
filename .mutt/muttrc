@@ -52,6 +52,15 @@ hdr_order Date To From Subject
 set flag_safe = yes
 # Scroll one email at a time, vs by pages
 set menu_scroll = yes
+# Do not skip to the next email when I reach the bottom of the current email
+set pager_stop
+
+# When forwarding an email, ask if I want to forward the email as an attachment;
+# doing so allows the receiver to see the email as it came to me, without
+# dealing with the conversion from HTML to text as I have.
+set mime_forward = ask-no
+# And fix the subject line to what normal people expect for forwarded mail
+set forward_format = "Fwd: %s"
 
 # Use the appropriate email address when replaying
 set use_envelope_from = yes
