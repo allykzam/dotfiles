@@ -108,4 +108,4 @@ color progress white red
 # Macro for the compose screen to change the selected attachment to text/html,
 # so that I have some reasonable manner by which to send HTML emails. See the
 # contents of the file for more info.
-macro compose h "<filter-entry>~/.mutt/markdown.sh<enter>y<enter><edit-type><kill-line>text/html<return>" "Convert markdown to HTML via cmark
+macro compose h "<filter-entry>~/.mutt/markdown.sh<enter>y<enter><edit-type><kill-line>text/html<return>" "Convert markdown to HTML via cmark"
