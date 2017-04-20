@@ -14,4 +14,4 @@
 body=$(cat /dev/stdin)
 sig=$(echo "$body" | tac 2>/dev/null | sed '/^-- $/q' | tac | tail -n +2)
 echo "$body" | head -n -$(echo "$sig" | wc -l) | tac | tail -n +2 | tac | cmark -t html --validate-utf8
-echo -e "----\n$sig" | cmark -t html --validate-utf8 --hardbreaks
+echo -e "-- \n$sig" | cmark -t html --validate-utf8 --hardbreaks
