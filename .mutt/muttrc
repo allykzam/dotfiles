@@ -62,9 +62,6 @@ set mime_forward = ask-no
 # And fix the subject line to what normal people expect for forwarded mail
 set forward_format = "Fwd: %s"
 
-# Use the appropriate email address when replaying
-set use_envelope_from = yes
-
 # Threads!
 # Hide the subject in replies to threads, so long as the subject has not changed
 # meaningfully
