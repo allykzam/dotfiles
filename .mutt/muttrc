@@ -89,8 +89,18 @@ set sidebar_indent_string = "  -> "
 set sidebar_short_path
 # Show folder name and new-mail count
 set sidebar_format = "%B %N"
-# Do not sort mailboxes; they are already in the order I want them in
-set sidebar_sort_method = "unsorted"
+# Sort sidebar boxes by name, so that auto-added mailboxes aren't in some
+# jumbled-up order
+set sidebar_sort_method = "name"
+# Do not include '.' as a sidebar delimiter, because after syncing to the local
+# system, some of my servers present directory names which start with '.'
+set sidebar_delim_chars = "/"
+
+# Matching the `sidebar_delim_chars` value, a mask that blocks out anything
+# starting with '.' is not helpful when all of your folders match that.
+set mask = ""
+
+unset mark_old
 
 
 # Colors! In moderation.
