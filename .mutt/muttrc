@@ -1,8 +1,8 @@
 # Account info and macros for switching between them lives here
-source ~/.local/share/mutt/account_config.muttrc
+source ~/.mail/configs/account_config.muttrc
 # And stash the certs file near the account info; some of my accounts require
 # accepting certificates that do not match up properly.
-set certificate_file = "~/.local/share/mutt/mutt_certs"
+set certificate_file = "~/.mail/configs/mutt_certs"
 
 # Use UTF-8 for sent mail, because seriously? If I can use UTF-8 in my
 # command-line mail client, everyone else can deal with reading UTF-8 in their
@@ -15,7 +15,7 @@ set mbox_type = maildir
 set header_cache = "~/.local/share/mutt/hcache/"
 
 # Alternate location for mailcap file...
-set mailcap_path = "~/.local/share/mutt/mailcap"
+set mailcap_path = "~/.mail/configs/mailcap"
 # Use the configuration in the mailcap file to show HTML email
 auto_view text/html
 # But try to view plain-text emails before HTML emails
@@ -23,7 +23,7 @@ alternative_order text/plain text/enriched text/html
 
 # Store mail aliases locally, so that my work/personal aliases do not get
 # committed to my "dotfiles" repo and pushed to GitHub for everyone to see
-set alias_file = "~/.local/share/mutt/aliases.muttrc"
+set alias_file = "~/.mail/configs/aliases.muttrc"
 set reverse_alias
 source $alias_file
 
