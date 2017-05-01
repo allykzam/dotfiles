@@ -55,6 +55,10 @@ set menu_scroll = yes
 # Do not skip to the next email when I reach the bottom of the current email
 set pager_stop
 
+# Show 10 lines of the index while the pager is open; makes it easier to tell
+# which email one is looking at
+set pager_index_lines = 10
+
 # When forwarding an email, ask if I want to forward the email as an attachment;
 # doing so allows the receiver to see the email as it came to me, without
 # dealing with the conversion from HTML to text as I have.
