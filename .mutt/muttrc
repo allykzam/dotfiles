@@ -98,6 +98,8 @@ set sidebar_delim_chars = "/"
 # Sidebar needs to be a little bit wider, because some of my accounts include a
 # fair bit of nested folders
 set sidebar_width = 40
+# Show mailboxes in the sidebar with green text when they contain new mail
+color sidebar_new green default
 
 # Matching the `sidebar_delim_chars` value, a mask that blocks out anything
 # starting with '.' is not helpful when all of your folders match that.
