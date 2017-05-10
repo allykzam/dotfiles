@@ -101,7 +101,7 @@ set sidebar_sort_method = "name"
 set sidebar_delim_chars = "/"
 # Sidebar needs to be a little bit wider, because some of my accounts include a
 # fair bit of nested folders
-set sidebar_width = 40
+set sidebar_width = 36
 # Show mailboxes in the sidebar with green text when they contain new mail
 color sidebar_new green default
 
