@@ -47,6 +47,8 @@ set index_format = "%4C %Z %[%Y-%m-%d] %-30.30L | %s"
 
 # Try to sort these headers first
 hdr_order Date To From Subject
+# But show all headers, because I'm weird like that
+unignore *
 
 # Do not let me delete flagged messages
 set flag_safe = yes
