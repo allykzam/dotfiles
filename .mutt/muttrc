@@ -111,8 +111,11 @@ color sidebar_new green default
 # starting with '.' is not helpful when all of your folders match that.
 set mask = ""
 
+# Do not mark messages as "old"
 unset mark_old
 
+# Ask who I want to cc; makes it easier to use aliases
+set askcc
 
 # Colors! In moderation.
 # Show new messages in green
