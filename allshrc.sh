@@ -182,6 +182,9 @@ alias gut=git
 # Alias for neovim so it doesn't think it can't use colors
 #alias nvim="TERM=xterm-256color nvim"
 
+# Alias "todo" as the to-do script
+alias todo="$HOME/GitHub/dotfiles/todo.sh"
+
 # If running in GNU screen and screen_term_name is set, check to see if it's a
 # GitHub project; if so, cd there and let screen move on. I use this at work to
 # auto-open screen with three panes for `git log`, `git diff`, and `git commit`.
