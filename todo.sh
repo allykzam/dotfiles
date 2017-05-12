@@ -82,6 +82,25 @@ function popTask() {
 }
 
 
+# Allows the user to edit the current task
+function editTask() {
+    # Grab the current task
+    task="$(tail -n 1 "$todoFile")"
+    # If the line had contents...
+    if [[ "${task:-}" != "" ]] ; then
+        # Split off the start date for the task
+        date="$(echo "$task" | cut -d ' ' -f 1)"
+        task="$(echo "$task" | cut -d ' ' -f 2-)"
+        # Ask the user to make their modification to the task
+        read -e -i "$task" task
+        # Remove the current task from the list, and then add it back on with
+        # the modification(s)
+        sed -i ".old" '$d' "$todoFile"
+        echo "$date $task" >> "$todoFile"
+    fi
+}
+
+
 displayTodo
 
 userInput=
@@ -99,6 +118,9 @@ do
             clear
             cat "$doneFile"
             doDisplay=false
+            ;;
+        "edit" | e)
+            editTask
             ;;
         +([0-9]))
             resumeTask "$userInput"
