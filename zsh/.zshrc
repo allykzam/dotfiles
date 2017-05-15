@@ -128,6 +128,14 @@ alias dirs="dirs -v"
 autoload -U colors
 colors
 
+# if there's anything machine-specific in .local, run it
+if [ -e "$HOME/.local/.zshrc" ] ; then
+    source "$HOME/.local/.zshrc"
+fi
+if [ -e "$HOME/.local/.allshrc" ] ; then
+    source "$HOME/.local/.allshrc"
+fi
+
 source "$HOME/GitHub/dotfiles/allshrc.sh"
 
 source "$HOME/GitHub/dotfiles/zsh/posh-git-zsh.sh"
@@ -148,14 +156,6 @@ zle -N zle-keymap-select
 if [ "$(uname)" = "Darwin" ] ; then
     bindkey "^[[3~" delete-char
     bindkey "^[3;5~" delete-char
-fi
-
-# if there's anything machine-specific in .local, run it
-if [ -e "$HOME/.local/.zshrc" ] ; then
-    source "$HOME/.local/.zshrc"
-fi
-if [ -e "$HOME/.local/.allshrc" ] ; then
-    source "$HOME/.local/.allshrc"
 fi
 
 # Make some keystrokes behave as expected
