@@ -326,3 +326,83 @@ tmuxgit(){
 if [[ "${TMUXGIT:-}" != "" ]]; then
     tmuxgit
 fi
+
+
+# Function for starting tmux and configuring it for a "dashboard" on different
+# machines
+dashboard(){
+    # This function has X stages:
+    #
+    # Stage 1 starts tmux
+    #
+    # Stage 2 configures panes based on the console size
+
+    # IF TMUXDASHBOARD isn't set yet, move to stage 1
+    if [[ "${TMUXDASHBOARD:-}" == "" ]]; then
+        export TMUXDASHBOARDSIZE="$(stty size)"
+        # If already running under tmux, just set TMUXDASHBOARD=1 and start over
+        if [[ "${TMUX:-}" != "" ]]; then
+            export TMUXDASHBOARD=1
+            dashboard
+
+        # Otherwise, start tmux
+        else
+            TMUXDASHBOARD=1 tmux -L tmux_dashboard
+        fi
+
+    elif [[ "${TMUXDASHBOARD:-}" == "1" ]]; then
+        # System-specifics here:
+
+        # This is my 1920x1080 monitor in portrait orientation at work. It gets
+        # five panes; a large top pane for neomutt, a middle section divided
+        # into an unclaimed pane I use for terminal commands and a section that
+        # shows the output from `show_git_status`, and a bottom section divided
+        # into my current "to-do list" and the current weather/calendar.
+        if [[ "${TMUXDASHBOARDSIZE:-}" == "131 150" ]]; then
+            if [[ "${TMUX_PANE:-}" == "%0" ]]; then
+                tmux split-window -v
+                tmux split-window -v -t "%1"
+                tmux split-window -h -t "%1"
+                tmux split-window -h -t "%2"
+                tmux resize-pane -t "%0" -D 29
+                tmux resize-pane -t "%1" -D 14
+                tmux resize-pane -t "%1" -R 14
+                tmux resize-pane -t "%2" -R 44
+                tmux select-pane -t "%2"
+                tmux select-pane -t "%1"
+                tmux select-pane -t "%0"
+            elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
+                sleep 1 ; clear
+            elif [[ "${TMUX_PANE:-}" == "%2" ]] ; then
+                sleep 1 ; $HOME/GitHub/dotfiles/todo.sh
+            elif [[ "${TMUX_PANE:-}" == "%3" ]] ; then
+                while [ 1 ]
+                do
+                    output=$(show_git_status)
+                    clear
+                    echo "$output"
+                    sleep 300
+                done
+            elif [[ "${TMUX_PANE:-}" == "%4" ]] ; then
+                while [ 1 ]
+                do
+                    cal
+                    echo
+                    (wget -qO - "wttr.in/${WEATHER_LOCATION:-}\?n" 2>/dev/null || true) | head -n 7
+                    sleep 300
+                done
+            fi
+
+        else
+            echo "Uhh, your screen size isn't set-up yet?"
+        fi
+
+        export TMUXDASHBOARD=2
+    fi
+}
+
+# If the shell just started and is partway through configuring the dashboard
+# stuff, just start it back up
+if [[ "${TMUXDASHBOARD:-}" != "" ]]; then
+    dashboard
+fi
