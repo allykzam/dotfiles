@@ -371,6 +371,7 @@ dashboard(){
                 tmux select-pane -t "%2"
                 tmux select-pane -t "%1"
                 tmux select-pane -t "%0"
+                mutt
             elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
                 sleep 1 ; clear
             elif [[ "${TMUX_PANE:-}" == "%2" ]] ; then
