@@ -356,18 +356,22 @@ dashboard(){
         # into my current "to-do list" and the current weather/calendar.
         if [[ "${TMUXDASHBOARDSIZE:-}" == "131 150" ]]; then
             if [[ "${TMUX_PANE:-}" == "%0" ]]; then
-                tmux split-window -v
-                tmux split-window -v -t "%1"
-                tmux split-window -h -t "%1"
-                tmux split-window -h -t "%2"
-                tmux resize-pane -t "%0" -D 29
-                tmux resize-pane -t "%1" -D 14
-                tmux resize-pane -t "%1" -R 14
-                tmux resize-pane -t "%2" -R 44
-                tmux select-pane -t "%2"
-                tmux select-pane -t "%1"
-                tmux select-pane -t "%0"
-                mutt
+                if [[ "$(tmux list-panes | wc -l)" == "1" ]] ; then
+                    tmux split-window -v
+                    tmux split-window -v -t "%1"
+                    tmux split-window -h -t "%1"
+                    tmux split-window -h -t "%2"
+                    tmux resize-pane -t "%0" -D 29
+                    tmux resize-pane -t "%1" -D 14
+                    tmux resize-pane -t "%1" -R 14
+                    tmux resize-pane -t "%2" -R 44
+                    tmux select-pane -t "%2"
+                    tmux select-pane -t "%1"
+                    tmux select-pane -t "%0"
+                    mutt
+                else
+                    echo "Re-running the dashboard in this tmux pane would cause additional panes to be created. Just call 'mutt' again."
+                fi
             elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
                 sleep 1 ; clear
             elif [[ "${TMUX_PANE:-}" == "%2" ]] ; then
