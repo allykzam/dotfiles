@@ -114,6 +114,13 @@ function editTask() {
 }
 
 
+# Clears the "finished" task list
+function clearFinished() {
+    > "$doneList"
+    commitChanges "Clear finished task list"
+}
+
+
 displayTodo
 
 userInput=
@@ -131,6 +138,9 @@ do
             clear
             cat "$doneFile"
             doDisplay=false
+            ;;
+        "clear-finished" | cf)
+            clearFinished
             ;;
         "edit" | e)
             editTask
