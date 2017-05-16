@@ -121,6 +121,13 @@ function clearFinished() {
 }
 
 
+# Creates a new task
+function createTask() {
+    echo "$(date -Is) $1" >> "$todoFile"
+    commitChanges "Create new task"
+}
+
+
 displayTodo
 
 userInput=
@@ -155,7 +162,7 @@ do
             true
             ;;
         **)
-            echo "$(date -Is) $userInput" >> "$todoFile"
+            createTask "$userInput"
             ;;
     esac
     if $doDisplay ; then
