@@ -20,7 +20,7 @@ function commitChanges() {
         (
             cd "$HOME/.local/shares/todo_list/.git"
             git add .
-            git commit -m "$1"
+            git commit -m "$1" 2>/dev/null || true
         )
     fi
 }
