@@ -49,8 +49,7 @@ function finishTask() {
 function resumeTask() {
     # Grab the specified line number
     line="$1"
-    task="$(head -n "$1" "$todoFile" | tail -n 1)"
-    line=$((line-1))
+    task="$(awk "NR == $1" "$todoFile")"
     # If the line had contents...
     if [[ "${task:-}" != "" ]] ; then
         # Remove the line from the to-do list...
