@@ -144,8 +144,7 @@ do
             ;;
         "finished" | f)
             clear
-            cat "$doneFile"
-            read -r userInput
+            less "$doneFile"
             ;;
         "clear-finished" | cf)
             clearFinished
