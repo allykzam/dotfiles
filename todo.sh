@@ -16,9 +16,9 @@ touch "$doneFile"
 # If the "todo_list" directory is a git repository, commits changes to any files
 # in the directory.
 function commitChanges() {
-    if [ -e "$HOME/.local/shares/todo_list/.git" ] ; then
+    if [ -e "$HOME/.local/share/todo_list/.git" ] ; then
         (
-            cd "$HOME/.local/shares/todo_list/.git"
+            cd "$HOME/.local/share/todo_list/.git"
             git add .
             git commit -m "$1" 2>/dev/null || true
         )
