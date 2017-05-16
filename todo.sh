@@ -18,7 +18,7 @@ touch "$doneFile"
 function commitChanges() {
     if [ -e "$HOME/.local/share/todo_list/.git" ] ; then
         (
-            cd "$HOME/.local/share/todo_list/.git"
+            cd "$HOME/.local/share/todo_list"
             git add .
             git commit -m "$1" 2>/dev/null || true
         )
