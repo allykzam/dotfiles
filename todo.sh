@@ -137,7 +137,7 @@ do
         "finished" | f)
             clear
             cat "$doneFile"
-            doDisplay=false
+            read -r userInput
             ;;
         "clear-finished" | cf)
             clearFinished
