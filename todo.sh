@@ -52,7 +52,7 @@ function finishTask() {
         echo "$date $(date -Is) $task" >> "$doneFile"
         # Then use sed to remove the task from the current list
         sed -i ".old" '$d' "$todoFile"
-        commitChanges "Finish current task"
+        commitChanges "Finish current task: $task"
     fi
 }
 
@@ -69,7 +69,8 @@ function resumeTask() {
         mv "$todoFile.tmp" "$todoFile"
         # And append it back onto the file
         echo "$task" >> "$todoFile"
-        commitChanges "Resume task $1"
+        task="$(echo "$task" | cut -d ' ' -f 2-)"
+        commitChanges "Resume task $1: $task"
     fi
 }
 
@@ -89,7 +90,7 @@ function popTask() {
         date="$(echo "$line" | cut -d ' ' -f 1)"
         task="$(echo "$line" | cut -d ' ' -f 2-)"
         echo "$date $(date -Is) $task" >> "$doneFile"
-        commitChanges "Finished task $1"
+        commitChanges "Finished task $1: $task"
     fi
 }
 
@@ -109,7 +110,7 @@ function editTask() {
         # the modification(s)
         sed -i ".old" '$d' "$todoFile"
         echo "$date $task" >> "$todoFile"
-        commitChanges "Modified current task"
+        commitChanges "Modified current task to: $task"
     fi
 }
 
@@ -124,7 +125,7 @@ function clearFinished() {
 # Creates a new task
 function createTask() {
     echo "$(date -Is) $1" >> "$todoFile"
-    commitChanges "Create new task"
+    commitChanges "Create new task: $1"
 }
 
 
