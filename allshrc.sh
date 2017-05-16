@@ -149,10 +149,6 @@ function show_git_status() {
     done
 }
 
-if [[ "${TMUX:-}" == "" && "$(uname)" == "Darwin" ]] ; then
-    show_git_status
-fi
-
 # When running on OSX...
 if [ "$(uname)" '==' "Darwin" ]; then
     # Reset the path with the gnubin stuff up-front so that the GNU version of
