@@ -161,6 +161,10 @@ do
         "")
             true
             ;;
+        [a-zA-Z])
+            echo "Unknown command '$userInput'"
+            read -r userInput
+            ;;
         **)
             createTask "$userInput"
             ;;
