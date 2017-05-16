@@ -13,6 +13,17 @@ touch "$todoFile"
 doneFile="$HOME/.local/share/todo_list/done_list"
 touch "$doneFile"
 
+# If the "todo_list" directory is a git repository, commits changes to any files
+# in the directory.
+function commitChanges() {
+    if [ -e "$HOME/.local/shares/todo_list/.git" ] ; then
+        (
+            cd "$HOME/.local/shares/todo_list/.git"
+            git add .
+            git commit -m "$1"
+        )
+    fi
+}
 
 # Displays the current to-do list with line numbers
 function displayTodo() {
@@ -41,6 +52,7 @@ function finishTask() {
         echo "$date $(date -Is) $task" >> "$doneFile"
         # Then use sed to remove the task from the current list
         sed -i ".old" '$d' "$todoFile"
+        commitChanges "Finish current task"
     fi
 }
 
@@ -57,6 +69,7 @@ function resumeTask() {
         mv "$todoFile.tmp" "$todoFile"
         # And append it back onto the file
         echo "$task" >> "$todoFile"
+        commitChanges "Resume task $1"
     fi
 }
 
@@ -76,6 +89,7 @@ function popTask() {
         date="$(echo "$line" | cut -d ' ' -f 1)"
         task="$(echo "$line" | cut -d ' ' -f 2-)"
         echo "$date $(date -Is) $task" >> "$doneFile"
+        commitChanges "Finished task $1"
     fi
 }
 
@@ -95,6 +109,7 @@ function editTask() {
         # the modification(s)
         sed -i ".old" '$d' "$todoFile"
         echo "$date $task" >> "$todoFile"
+        commitChanges "Modified current task"
     fi
 }
 
