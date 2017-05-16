@@ -393,8 +393,6 @@ dashboard(){
         else
             echo "Uhh, your screen size isn't set-up yet?"
         fi
-
-        export TMUXDASHBOARD=2
     fi
 }
 
