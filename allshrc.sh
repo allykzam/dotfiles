@@ -362,7 +362,7 @@ dashboard(){
                     tmux split-window -h -t "%1"
                     tmux split-window -h -t "%2"
                     tmux resize-pane -t "%0" -D 29
-                    tmux resize-pane -t "%1" -D 14
+                    tmux resize-pane -t "%1" -D 16
                     tmux resize-pane -t "%1" -R 14
                     tmux resize-pane -t "%2" -R 44
                     tmux select-pane -t "%2"
@@ -389,7 +389,10 @@ dashboard(){
                 do
                     cal
                     echo
-                    (wget -qO - "wttr.in/${WEATHER_LOCATION:-}\?n" 2>/dev/null || true) | head -n 7
+                    # 'q' disables the caption
+                    # 'Q' disables the city name -- I know where I am
+                    # '0' indicates that I want zero days' forecast
+                    (wget -qO - "wttr.in/${WEATHER_LOCATION:-}\?q\&Q\&0" 2>/dev/null || true)
                     sleep 300
                 done
             fi
