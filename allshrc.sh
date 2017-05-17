@@ -96,11 +96,11 @@ function show_git_status() {
 
         print=0
         issues=""
-        if (! git diff-index --quiet HEAD); then
+        if (git update-index --ignore-submodules --really-refresh > /dev/null && git diff-files --quiet --ignore-submodules && git diff-index --cached --quiet HEAD --ignore-submodules) ; then
+            issues="Clean,"
+        else
             issues="${RED}Dirty${NC},"
             print=1
-        else
-            issues="Clean,"
         fi
 
         branchName="$(git rev-parse --abbrev-ref HEAD)"
