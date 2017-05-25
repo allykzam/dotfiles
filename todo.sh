@@ -117,7 +117,7 @@ function editTask() {
 
 # Clears the "finished" task list
 function clearFinished() {
-    > "$doneList"
+    > "$doneFile"
     commitChanges "Clear finished task list"
 }
 
