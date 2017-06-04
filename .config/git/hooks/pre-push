@@ -24,7 +24,8 @@ do
                         git verify-commit "$local_sha" > /dev/null
                         if [ $? = 1 ]
                         then
-                            echo "Cannot push unsigned commits to dev or master"
+                            echo "Cannot push unsigned commits to dev or master; run this to allow for this repo:"
+                            echo "git config --add github.unsigned-pushes allow"
                             exit 1
                         fi
                     fi
