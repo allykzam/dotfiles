@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
     <!-- The History of opened files list -->
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no" />
-    <History nbMaxFile="10" inSubMenu="no" customLength="-1" />
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="1" transparencyMode="1" transparency="150" dotMatchesNewline="no">
+    </FindHistory>
+    <History nbMaxFile="15" inSubMenu="no" customLength="-1">
+    </History>
     <GUIConfigs>
         <GUIConfig name="ToolBar" visible="yes">standard</GUIConfig>
         <GUIConfig name="StatusBar">show</GUIConfig>
@@ -13,7 +15,7 @@
         <GUIConfig name="AppPosition" x="331" y="47" width="957" height="579" isMaximized="no" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20161214">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>
-        <GUIConfig name="CheckHistoryFiles">yes</GUIConfig>
+        <GUIConfig name="CheckHistoryFiles">no</GUIConfig>
         <GUIConfig name="TrayIcon">no</GUIConfig>
         <GUIConfig name="MaitainIndent">yes</GUIConfig>
         <GUIConfig name="TagsMatchHighLight" TagAttrHighLight="yes" HighLightNonHtmlZone="no">yes</GUIConfig>
