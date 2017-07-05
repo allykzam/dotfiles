@@ -20,7 +20,7 @@ auto_view text/html
 alternative_order text/plain text/enriched text/html
 
 # Store mail aliases locally, so that my work/personal aliases do not get
-# committed to my "dotfiles" repo and pushed to GitHub for everyone to see
+# committed to my "dotfiles" repo and pushed to the internet for everyone to see
 set alias_file = "~/.mail/configs/aliases.muttrc"
 set reverse_alias
 source $alias_file

@@ -21,12 +21,12 @@ repo_name=$(basename "$repo_name" | sed 's/.git//')
 
 function getData() {
     jsonData=$(curl -s "https://api.github.com/repos/$repo_owner/$repo_name/issues?access_token=$user_token")
-    result=$(echo "$jsonData" | ~/GitHub/dotfiles/.config/git/issue-cmd.py)
+    result=$(echo "$jsonData" | ~/git/dotfiles/.config/git/issue-cmd.py)
     page=1
     while [ "$result" == "" ]; do
         page=$((page+1))
         jsonData=$(curl -s "https://api.github.com/repos/$repo_owner/$repo_name/issues?access_token=$user_token&page=$page")
-        result=$(echo "$jsonData" | ~/GitHub/dotfiles/.config/git/issue-cmd.py)
+        result=$(echo "$jsonData" | ~/git/dotfiles/.config/git/issue-cmd.py)
     done
 }
 

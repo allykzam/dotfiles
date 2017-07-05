@@ -137,7 +137,7 @@ function show_git_status() {
             echo "$issues -- $(basename "$dir")"
         fi
     }
-    for dir in ~/GitHub/* ; do
+    for dir in ~/git/* ; do
         repo=$(getStats "$dir")
         if [[ "$repo" != "" ]] ; then
             if [[ "$header" != "" ]] ; then
@@ -179,17 +179,7 @@ alias gut=git
 #alias nvim="TERM=xterm-256color nvim"
 
 # Alias "todo" as the to-do script
-alias todo="$HOME/GitHub/dotfiles/todo.sh"
-
-# If running in GNU screen and screen_term_name is set, check to see if it's a
-# GitHub project; if so, cd there and let screen move on. I use this at work to
-# auto-open screen with three panes for `git log`, `git diff`, and `git commit`.
-if [[ "${screen_term_name:-}" != "" ]] ; then
-    if [ -d "$HOME/GitHub/$screen_term_name" ] ; then
-        cd "$HOME/GitHub/$screen_term_name"
-    fi
-    unset screen_term_name
-fi
+alias todo="$HOME/git/dotfiles/todo.sh"
 
 # Custom function for "sudo" so that we get a fun error message as a result
 sudopath="$(which sudo)"
@@ -219,7 +209,7 @@ fi
 export SSH_AUTH_SOCK
 
 # Alias for the logrepos script
-alias logrepos=$HOME/GitHub/dotfiles/logrepos.sh
+alias logrepos=$HOME/git/dotfiles/logrepos.sh
 
 # Function for starting tmux and configuring it for git on different machines
 #
@@ -241,11 +231,11 @@ tmuxgit(){
         export TMUXGITPATH="$(pwd)"
 
         # If the user gave an argument, and it's contents matches the name of a
-        # directory under ~/GitHub, then use that as the target path instead of
-        # the current directory
+        # directory under ~/git, then use that as the target path instead of the
+        # current directory
         if [[ "${1:-}" != "" ]]; then
-            if [ -d "$HOME/GitHub/${1:-}" ]; then
-                export TMUXGITPATH="$HOME/GitHub/${1:-}"
+            if [ -d "$HOME/git/${1:-}" ]; then
+                export TMUXGITPATH="$HOME/git/${1:-}"
             fi
         fi
 
@@ -375,7 +365,7 @@ dashboard(){
             elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
                 sleep 1 ; clear
             elif [[ "${TMUX_PANE:-}" == "%2" ]] ; then
-                sleep 1 ; $HOME/GitHub/dotfiles/todo.sh
+                sleep 1 ; $HOME/git/dotfiles/todo.sh
             elif [[ "${TMUX_PANE:-}" == "%3" ]] ; then
                 while [ 1 ]
                 do

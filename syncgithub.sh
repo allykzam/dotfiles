@@ -5,7 +5,7 @@ homepath="$(git config --get github.sync-homepath)"
 function syncRepo() {
     local repoName="$1"
     if [ ! -d "$repoName" ] ; then
-        repoName="$HOME/GitHub/$repoName"
+        repoName="$HOME/git/$repoName"
     fi
     if [ ! -d "$repoName" ] ; then
         echo "Can't find repo '$1'"
@@ -59,7 +59,7 @@ if [ ! "$targetRepo" == "" ] ; then
 fi
 
 (
-    cd "$HOME/GitHub"
+    cd "$HOME/git"
     IFS=$'\n\t'
     user_token="$(git config --get github.access-token)"
     if [ "$user_token" == "" ] ; then
@@ -87,7 +87,7 @@ fi
 
 
 (
-    cd "$HOME/GitHub"
+    cd "$HOME/git"
     for repo in *
     do
         (

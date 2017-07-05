@@ -10,14 +10,14 @@ setopt AUTO_PUSHD               # works like Windows Explorer's back button; use
                                 # add a directory to the stack. with this
                                 # enabled, cd automatically acts like pushd ran
                                 # too.
-setopt CDABLE_VARS              # running "cd GitHub" from /etc/ will cd to
-                                # ~/GitHub (assuming there's no /etc/GitHub)
+setopt CDABLE_VARS              # running "cd git" from /etc/ will cd to ~/git
+                                # (assuming there's no /etc/git)
 setopt CHASE_DOTS               # if ~/.vim/ is a symlink to
-                                # ~/GitHub/dotfiles/vim then running
-                                # `cd ~/.vim/..` takes you to ~/GitHub/dotfiles/
+                                # ~/git/dotfiles/vim then running `cd ~/.vim/..`
+                                # takes you to ~/git/dotfiles/
 setopt CHASE_LINKS              # this is similar to CHASE_DOTS, but now doing
                                 # `cd ~/.vim` will take you directly to
-                                # ~/GitHub/dotfiles/vim/ as well
+                                # ~/git/dotfiles/vim/ as well
 setopt NO_PUSHD_IGNORE_DUPS     # not sure why you'd want this on
 #setopt PUSHD_MINUS              # haven't used the stack enough to know if I
                                 # want this or not
@@ -136,9 +136,9 @@ if [ -e "$HOME/.local/.allshrc" ] ; then
     source "$HOME/.local/.allshrc"
 fi
 
-source "$HOME/GitHub/dotfiles/allshrc.sh"
+source "$HOME/git/dotfiles/allshrc.sh"
 
-source "$HOME/GitHub/dotfiles/zsh/posh-git-zsh.sh"
+source "$HOME/git/dotfiles/zsh/posh-git-zsh.sh"
 
 # use vi-mode
 bindkey -v
