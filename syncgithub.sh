@@ -4,8 +4,13 @@ homepath="$(git config --get github.sync-homepath)"
 
 function syncRepo() {
     local repoName="$1"
+    local gitDir="${2:-}"
+    local remoteGitDir="${3:-}"
+    if [ "$gitDir" == "" ] ; then
+        gitDir="git"
+    fi
     if [ ! -d "$repoName" ] ; then
-        repoName="$HOME/git/$repoName"
+        repoName="$HOME/$gitDir/$repoName"
     fi
     if [ ! -d "$repoName" ] ; then
         echo "Can't find repo '$1'"
@@ -38,14 +43,14 @@ function syncRepo() {
                 git fetch "$remote" --prune
 
                 echo "Pushing data from $remote to the backup system"
-                git push --quiet "$homepath$homerepo" refs/remotes/$remote/*:refs/heads/*
+                git push --quiet "$homepath$remoteGitDir$homerepo" refs/remotes/$remote/*:refs/heads/*
                 if [ $? -ne 0 ] ; then
                     echo "Can't push to backup system; either the connection failed, or this repository doesn't exist there."
-                    echo "There should be a bare repositor located at $homepath$homerepo"
+                    echo "There should be a bare repositor located at $homepath$remoteGitDir$homerepo"
                     break
                 fi
 
-                git push --quiet "$homepath$homerepo" --tags
+                git push --quiet "$homepath$remoteGitDir$homerepo" --tags
             )
         done
     )
@@ -87,6 +92,38 @@ fi
 
 
 (
+    cd "$HOME/gists"
+    IFS=$'\n\t'
+    user_token="$(git config --get github.access-token)"
+    user_name="$(git config --get github.user)"
+    if [ "$user_token" == "" ] ; then
+        echo "No token or present under the github.access-token git config value" >&2
+    elif [ "$user_name" == "" ] ; then
+        echo "No user name present under the github.user git config value" >&2
+    else
+        pageNumber=1
+        echo "Getting page $pageNumber of your GitHub gists"
+        jsonData="$(curl -s https://api.github.com/users/$user_name/gists?access_token=$user_token | grep git_pull_url | cut -d '"' -f 4)"
+        while [ ${#jsonData} -gt 1 ] ;
+        do
+            for gist in $jsonData
+            do
+                gistId="$(echo $gist | rev | cut -d '.' -f 2 | cut -d '/' -f 1 | rev)"
+                gistUrl="$(echo $gist | sed 's|https://gist.github.com/|github.com:|')"
+                if [ ! -d "$gistId" ] ; then
+                    echo "Gist ID $gistId doesn't exist locally; cloning from $gistUrl"
+                    git clone --quiet "$gistUrl"
+                fi
+            done
+            pageNumber=$((pageNumber+1))
+            echo "Getting page $pageNumber of your GitHub gists"
+            jsonData="$(curl -s https://api.github.com/users/$user_name/gists?access_token=$user_token\&page=$pageNumber | grep git_pull_url | cut -d '"' -f 4)"
+        done
+    fi
+)
+
+
+(
     cd "$HOME/git"
     for repo in *
     do
@@ -95,6 +132,20 @@ fi
                 echo
                 echo
                 syncRepo "$repo"
+            fi
+        )
+    done
+)
+
+(
+    cd "$HOME/gists"
+    for repo in *
+    do
+        (
+            if [ -d "$repo" ] ; then
+                echo
+                echo
+                syncRepo "$repo" "gists" "gists/"
             fi
         )
     done
