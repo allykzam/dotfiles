@@ -1,4 +1,4 @@
-source "$HOME/git/dotfiles/allshrc.sh"
+source "$HOME/dev/dotfiles/allshrc.sh"
 
 # Any command that starts with whitespace is kept out of the history
 declare -x HISTCONTROL=ignorespace
@@ -13,7 +13,7 @@ fi
 
 
 # Set-up the prompt to do the posh-git stuff
-posh_git_path="$HOME/git/posh-git-bash/git-prompt.sh"
+posh_git_path="$HOME/dev/posh-git-bash/git-prompt.sh"
 posh_git_command='__git_ps1 "\u@\h:\w" "\\\$ "'
 posh_gitmode_command='__git_ps1 "\u@\h:\w" "-> "'
 normal_ps1='\u@\h:\w\$ '

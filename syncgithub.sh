@@ -7,7 +7,7 @@ function syncRepo() {
     local gitDir="${2:-}"
     local remoteGitDir="${3:-}"
     if [ "$gitDir" == "" ] ; then
-        gitDir="git"
+        gitDir="dev"
     fi
     if [ ! -d "$repoName" ] ; then
         repoName="$HOME/$gitDir/$repoName"
@@ -64,7 +64,7 @@ if [ ! "$targetRepo" == "" ] ; then
 fi
 
 (
-    cd "$HOME/git"
+    cd "$HOME/dev"
     IFS=$'\n\t'
     user_token="$(git config --get github.access-token)"
     if [ "$user_token" == "" ] ; then
@@ -124,7 +124,7 @@ fi
 
 
 (
-    cd "$HOME/git"
+    cd "$HOME/dev"
     for repo in *
     do
         (

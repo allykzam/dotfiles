@@ -11,6 +11,6 @@ export PAGER=less
 # less -M adds more verbose positioning info to less' output
 export LESS=RSM
 # tell zsh to load its dot-files from the dotfiles repo if it exists
-if [[ -d "$HOME/git/dotfiles/zsh" ]] ; then
-    export ZDOTDIR="$HOME/git/dotfiles/zsh"
+if [[ -d "$HOME/dev/dotfiles/zsh" ]] ; then
+    export ZDOTDIR="$HOME/dev/dotfiles/zsh"
 fi

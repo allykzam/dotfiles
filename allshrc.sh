@@ -137,7 +137,7 @@ function show_git_status() {
             echo "$issues -- $(basename "$dir")"
         fi
     }
-    for dir in ~/git/* ; do
+    for dir in ~/dev/* ~/gists/* ; do
         repo=$(getStats "$dir")
         if [[ "$repo" != "" ]] ; then
             if [[ "$header" != "" ]] ; then
@@ -179,7 +179,7 @@ alias gut=git
 #alias nvim="TERM=xterm-256color nvim"
 
 # Alias "todo" as the to-do script
-alias todo="$HOME/git/dotfiles/todo.sh"
+alias todo="$HOME/dev/dotfiles/todo.sh"
 
 # Custom function for "sudo" so that we get a fun error message as a result
 sudopath="$(which sudo)"
@@ -209,7 +209,7 @@ fi
 export SSH_AUTH_SOCK
 
 # Alias for the logrepos script
-alias logrepos=$HOME/git/dotfiles/logrepos.sh
+alias logrepos=$HOME/dev/dotfiles/logrepos.sh
 
 # Function for starting tmux and configuring it for git on different machines
 #
@@ -231,11 +231,11 @@ tmuxgit(){
         export TMUXGITPATH="$(pwd)"
 
         # If the user gave an argument, and it's contents matches the name of a
-        # directory under ~/git, then use that as the target path instead of the
+        # directory under ~/dev, then use that as the target path instead of the
         # current directory
         if [[ "${1:-}" != "" ]]; then
-            if [ -d "$HOME/git/${1:-}" ]; then
-                export TMUXGITPATH="$HOME/git/${1:-}"
+            if [ -d "$HOME/dev/${1:-}" ]; then
+                export TMUXGITPATH="$HOME/dev/${1:-}"
             fi
         fi
 
@@ -365,7 +365,7 @@ dashboard(){
             elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
                 sleep 1 ; clear
             elif [[ "${TMUX_PANE:-}" == "%2" ]] ; then
-                sleep 1 ; $HOME/git/dotfiles/todo.sh
+                sleep 1 ; $HOME/dev/dotfiles/todo.sh
             elif [[ "${TMUX_PANE:-}" == "%3" ]] ; then
                 while [ 1 ]
                 do

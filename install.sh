@@ -128,7 +128,7 @@ if [ "$zshenvpath" == "" ] ; then
     echo "Unable to determine target zshenv path, skipping..."
 elif [ ! -e "$zshenvpath" ] ; then
     echo "Symlinking zshenv"
-    sudo ln -s "$HOME/git/dotfiles/zshenv" "$zshenvpath"
+    sudo ln -s "$HOME/dev/dotfiles/zshenv" "$zshenvpath"
 else
     echo "Skipping zshenv"
 fi
@@ -138,10 +138,10 @@ if [ ! -d "$HOME/.gnupg" ]; then
     chmod 700 "$HOME/.gnupg"
 fi
 if [ ! -e "$HOME/.gnupg/gpg.conf" ]; then
-    ln -s "$HOME/git/dotfiles/gpg.conf" "$HOME/.gnupg/gpg.conf"
+    ln -s "$HOME/dev/dotfiles/gpg.conf" "$HOME/.gnupg/gpg.conf"
 fi
 if [ ! -e "$HOME/.gnupg/gpg-agent.conf" ]; then
-    ln -s "$HOME/git/dotfiles/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+    ln -s "$HOME/dev/dotfiles/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
 fi
 
 if echo "$unameDetails" | grep -q ARCH ; then
@@ -170,8 +170,8 @@ if echo "$unameDetails" | grep -q Darwin ; then
     touch ~/.bash_sessions_disable
 fi
 
-if [ ! -d "$HOME/git/posh-git-sh" ] ; then
+if [ ! -d "$HOME/dev/posh-git-sh" ] ; then
     echo "Cloning posh-git-sh"
-    cd "$HOME/git"
+    cd "$HOME/dev"
     git clone github.com:amazingant/posh-git-sh.git || echo "Could not clone posh-git-sh"
 fi

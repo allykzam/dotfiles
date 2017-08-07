@@ -4,7 +4,7 @@ name=$(git config --get user.name)
 commits=""
 repos=0
 
-for dir in ~/git/* ~/gists/*
+for dir in ~/dev/* ~/gists/*
 do
     data=$(
         cd "$dir" || exit
@@ -27,7 +27,7 @@ done
 echo "$repos repositories have changes since '$1':"
 echo "$commits"
 
-for dir in ~/git/* ~/gists/*
+for dir in ~/dev/* ~/gists/*
 do
     (
         cd "$dir" 2>/dev/null
