@@ -398,3 +398,70 @@ dashboard(){
 if [[ "${TMUXDASHBOARD:-}" != "" ]]; then
     dashboard
 fi
+
+
+# Local function used on PentiumLappy for starting up Voltron. Useful for
+# debugging things in GDB.
+start-voltron(){
+    # This function has X stages:
+    #
+    # Stage 1 starts tmux
+    #
+    # Stage 2 configures panes based on the console size
+
+    # IF TMUX_VOLTRON isn't set yet, move to stage 1
+    if [[ "${TMUX_VOLTRON:-}" == "" ]]; then
+        export TMUX_VOLTRON_SIZE="$(stty size)"
+        # If already running under tmux, just set TMUX_VOLTRON=1 and start over
+        if [[ "${TMUX:-}" != "" ]]; then
+            export TMUX_VOLTRON=1
+            start-voltron
+
+        # Otherwise, start tmux
+        else
+            TMUX_VOLTRON=1 tmux -L tmux_voltron
+        fi
+
+    elif [[ "${TMUX_VOLTRON:-}" == "1" ]]; then
+        # System-specifics here:
+
+        # This is my home server
+        if [[ "${TMUX_VOLTRON_SIZE:-}" == "100 320" ]]; then
+            if [[ "${TMUX_PANE:-}" == "%0" ]]; then
+                if [[ "$(tmux list-panes | wc -l)" == "1" ]]; then
+                    tmux split-window -h
+                    tmux split-window -h -t "%1"
+                    tmux split-window -v -t "%1"
+                    tmux split-window -v -t "%1"
+                    tmux split-window -h -t "%3"
+                    tmux resize-pane -t "%0" -L 70
+                    tmux resize-pane -t "%2" -L 25
+                    tmux resize-pane -t "%1" -U 5
+                    tmux resize-pane -t "%4" -D 30
+                    tmux resize-pane -t "%3" -R 11
+                    voltron view disasm
+                else
+                    echo "Re-running 'start-voltron' in this tmux pane would cause additional panes to be created. Just call 'voltron view disasm' again."
+                fi
+            elif [[ "${TMUX_PANE:-}" == "%1" ]]; then
+                voltron view breakpoints
+            elif [[ "${TMUX_PANE:-}" == "%2" ]]; then
+                voltron view memory
+            elif [[ "${TMUX_PANE:-}" == "%3" ]]; then
+                voltron view backtrace
+            elif [[ "${TMUX_PANE:-}" == "%4" ]]; then
+                voltron view stack
+            elif [[ "${TMUX_PANE:-}" == "%5" ]]; then
+                voltron view registers
+            fi
+        else
+            echo "Uhh, your screen size isn't set-up yet?"
+        fi
+    fi
+}
+
+# If the shell just started and is partway through configuring a voltron
+# display, just start it back up
+if [[ "${TMUX_VOLTRON:-}" != "" ]]; then
+    start-voltron
+fi
