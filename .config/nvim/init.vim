@@ -114,6 +114,9 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " tell vim that .muttrc files are...muttrc files?
 autocmd BufNewFile,BufReadPost *.muttrc set filetype=muttrc
 
+" Use the "desert" color scheme for assembly
+autocmd BufNewFile,BufReadPost *.asm color desert
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 
