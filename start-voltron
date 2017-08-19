@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+source ~/dev/dotfiles/allshrc.sh
+
+start-voltron
