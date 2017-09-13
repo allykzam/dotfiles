@@ -75,14 +75,15 @@ if [[ "$TERM" == "linux" ]] ; then
 fi
 
 function show_git_status() {
-    local header RED GREEN BLUE NC dir repo
-    header="WTree,  Issue #, Stash -- Repository"
+    local header RED GREEN BLUE YELLOW NC dir repo
+    header="WTree,   Issue  #, Stash -- Repository"
     RED='\033[0;31m'
     GREEN='\033[1;32m'
     BLUE='\033[1;34m'
+    YELLOW='\033[1;33m'
     NC='\033[0m'
     function getStats() {
-        local dir gitDir print issues branchName stashes MATCH MBEGIN MEND
+        local dir gitDir print issues branchName upstream localChanges remoteChanges stashes MATCH MBEGIN MEND
 
         dir="$1"
         if [ -f "$dir" ] ; then
@@ -104,6 +105,11 @@ function show_git_status() {
         fi
 
         branchName="$(git rev-parse --abbrev-ref HEAD)"
+        upstream="$(git config --get "branch.$branchName.remote" || true)"
+        if [[ "$upstream" != "" ]]; then
+            upstream="$(git rev-list --left-right --count "$branchName...$upstream/$branchName")"
+        fi
+
         if [[ "$branchName" =~ issue/.* ]] ; then
             branchName="#$(basename "$branchName")"
             print=1
@@ -133,8 +139,23 @@ function show_git_status() {
             issues="$issues [  0]"
         fi
 
+        if [[ "$upstream" != "" && "$upstream" != "$(echo -e '0\t0')" ]]; then
+            localChanges="$(echo "$upstream" | cut -f 1)"
+            remoteChanges="$(echo "$upstream" | cut -f 2)"
+            if [[ "$localChanges" == "0" && "$remoteChanges" != "0" ]] ; then
+                upstream="${RED}↓${NC} "
+            elif [[ "$localChanges" != "0" && "$remoteChanges" == "0" ]] ; then
+                upstream="${GREEN}↑${NC} "
+            else
+                upstream="${YELLOW}X${NC} "
+            fi
+            print=1
+        else
+            upstream=""
+        fi
+
         if [[ "$issues" != "" && "$print" == "1" ]] ; then
-            echo "$issues -- $(basename "$dir")"
+            echo "$issues -- $upstream$(basename "$dir")"
         fi
     }
     for dir in ~/dev/* ~/gists/* ; do
