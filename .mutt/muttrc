@@ -6,6 +6,7 @@ set certificate_file = "~/.mail/configs/mutt_certs"
 # command-line mail client, everyone else can deal with reading UTF-8 in their
 # graphical mail clients.
 set send_charset = "utf-8"
+set assumed_charset = "utf-8"
 
 # Use maildir by default
 set mbox_type = maildir
