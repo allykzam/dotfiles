@@ -379,9 +379,9 @@ dashboard(){
                     tmux select-pane -t "%2"
                     tmux select-pane -t "%1"
                     tmux select-pane -t "%0"
-                    mutt
+                    neomutt
                 else
-                    echo "Re-running the dashboard in this tmux pane would cause additional panes to be created. Just call 'mutt' again."
+                    echo "Re-running the dashboard in this tmux pane would cause additional panes to be created. Just call 'neomutt' again."
                 fi
             elif [[ "${TMUX_PANE:-}" == "%1" ]] ; then
                 sleep 1 ; clear
