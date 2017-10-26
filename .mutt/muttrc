@@ -139,5 +139,10 @@ color progress white red
 # contents of the file for more info.
 macro compose h "<filter-entry>~/.mutt/markdown.sh<enter>y<enter><edit-type><kill-line>text/html<return>" "Convert markdown to HTML via cmark"
 
+# Adjust the editor to set the file format to "mail" -- neovim's auto-detection
+# of mail files does not work now that neomutt has moved away from using "mutt"
+# everywhere.
+set editor = 'nvim -c "setf mail"'
+
 # Account info and macros for switching between them lives here
 source ~/.mail/configs/account_config.muttrc
