@@ -46,7 +46,7 @@ function syncRepo() {
                 git push --quiet "$homepath$remoteGitDir$homerepo" refs/remotes/$remote/*:refs/heads/*
                 if [ $? -ne 0 ] ; then
                     echo "Can't push to backup system; either the connection failed, or this repository doesn't exist there."
-                    echo "There should be a bare repositor located at $homepath$remoteGitDir$homerepo"
+                    echo "There should be a bare repository located at $homepath$remoteGitDir$homerepo"
                     break
                 fi
 
