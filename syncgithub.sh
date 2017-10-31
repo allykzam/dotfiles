@@ -53,6 +53,12 @@ function syncRepo() {
                 git push --quiet "$homepath$remoteGitDir$homerepo" --tags
             )
         done
+        local TFSRemote="$(git remote -v | grep -E "^tfs\\W")"
+        local originRemote="$(git remote -v | grep -E "^origin\\W")"
+        if [[ "${TFSRemote:-}" != "" && "${originRemote:-}" != "" ]] ; then
+            echo "Pushing data from origin to TFS"
+            git push --quiet tfs refs/remotes/origin/*:refs/heads/*
+        fi
     )
 }
 
