@@ -74,3 +74,5 @@
     showSignature = true
 [protocol "http"]
     allow = never
+[diff]
+    colorMoved = default
