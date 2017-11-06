@@ -121,6 +121,8 @@ set askcc
 color index green default "~N"
 # Show deleted messages in red
 color index red default "~D"
+# Messages which include me in the To/CC AND are new
+color index magenta default "~N ~p"
 
 
 # Stop skipping over things when pushing up/down arrows
