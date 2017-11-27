@@ -257,6 +257,7 @@ tmuxgit(){
         if [[ "${1:-}" != "" ]]; then
             if [ -d "$HOME/dev/${1:-}" ]; then
                 export TMUXGITPATH="$HOME/dev/${1:-}"
+                printf '\e]1;%s\a' "dev/${1:-}"
             fi
         fi
 
