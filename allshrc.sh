@@ -348,6 +348,7 @@ dashboard(){
     # IF TMUXDASHBOARD isn't set yet, move to stage 1
     if [[ "${TMUXDASHBOARD:-}" == "" ]]; then
         export TMUXDASHBOARDSIZE="$(stty size)"
+        printf '\e]1;%s\a' "dashboard"
         # If already running under tmux, just set TMUXDASHBOARD=1 and start over
         if [[ "${TMUX:-}" != "" ]]; then
             export TMUXDASHBOARD=1
