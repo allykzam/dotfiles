@@ -133,10 +133,10 @@ function show_git_status() {
         if [[ "$stashes" != "0" && "$stashes" != "" ]] ; then
             print=1
             declare -R3 stashes
-            issues="$issues, [${BLUE}$stashes${NC}]"
+            issues="$issues [${BLUE}$stashes${NC}],"
         else
             declare -R3 stashes
-            issues="$issues, [  0]"
+            issues="$issues [  0],"
         fi
 
         if [[ "$branchName" != "master" ]] ; then
