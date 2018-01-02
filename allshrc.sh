@@ -76,14 +76,14 @@ fi
 
 function show_git_status() {
     local header RED GREEN BLUE YELLOW NC dir repo
-    header="WTree,   Issue  #, Stash -- Repository"
+    header="WTree,   Issue  #, Stash, UnRel -- Repository"
     RED='\033[0;31m'
     GREEN='\033[1;32m'
     BLUE='\033[1;34m'
     YELLOW='\033[1;33m'
     NC='\033[0m'
     function getStats() {
-        local dir gitDir print issues branchName upstream localChanges remoteChanges stashes MATCH MBEGIN MEND
+        local dir gitDir print issues branchName upstream localChanges remoteChanges unreleasedChanges stashes MATCH MBEGIN MEND
 
         dir="$1"
         if [ -f "$dir" ] ; then
@@ -133,9 +133,22 @@ function show_git_status() {
         if [[ "$stashes" != "0" && "$stashes" != "" ]] ; then
             print=1
             declare -R3 stashes
-            issues="$issues [${BLUE}$stashes${NC}]"
+            issues="$issues, [${BLUE}$stashes${NC}]"
         else
             declare -R3 stashes
+            issues="$issues, [  0]"
+        fi
+
+        if [[ "$branchName" != "master" ]] ; then
+            unreleasedChanges="$(git log HEAD ^origin/master --no-merges --oneline --no-show-signature 2>/dev/null | wc -l)"
+            if [[ "$unreleasedChanges" != "0" && "$unreleasedChanges" != "" ]] ; then
+                print=1
+                declare -R3 unreleasedChanges
+                issues="$issues [${GREEN}$unreleasedChanges${NC}]"
+            else
+                issues="$issues [  0]"
+            fi
+        else
             issues="$issues [  0]"
         fi
 
