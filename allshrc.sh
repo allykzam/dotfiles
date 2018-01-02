@@ -408,7 +408,7 @@ dashboard(){
                     output=$(show_git_status)
                     clear
                     echo "$output"
-                    sleep 300
+                    sleep 900
                 done
             elif [[ "${TMUX_PANE:-}" == "%4" ]] ; then
                 while [ 1 ]
@@ -419,7 +419,7 @@ dashboard(){
                     # 'Q' disables the city name -- I know where I am
                     # '0' indicates that I want zero days' forecast
                     (wget -qO - "wttr.in/${WEATHER_LOCATION:-}\?q\&Q\&0" 2>/dev/null | sed 's/Thunderstorm/TStorm/' | sed 's/In Vicinity/Nearby/' || true)
-                    sleep 300
+                    sleep 900
                 done
             fi
 
