@@ -19,6 +19,29 @@ function syncRepo() {
     (
         echo "Moving to $repoName"
         cd "$repoName"
+        local homerepo="$(git remote -v | grep origin | grep fetch | grep github | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+        if [ "$homerepo" != "" ] ; then
+            # Look to see if there is an "upstream" remote; if there is not, see
+            # if we should create one.
+            local upstream="$(git remote -v | grep '^upstream')"
+            if [ "${upstream:-}" == "" ] ; then
+                # Get the `user/repo` part of the origin URL
+                upstream="$(echo "$homerepo" | sed 's/.git$//')"
+                local access_token="$(git config --get github.access-token)"
+                # Get GitHub's data for this repository
+                local github_data="$(curl -s https://api.github.com/repos/$upstream?access_token=$access_token)"
+                # Check to see if this repository is a fork
+                local fork_status="$(echo "$github_data" | grep '"fork"' | cut -d ':' -f 2 | cut -d ',' -f 1 | head -n 1)"
+                if [ "${fork_status:-}" == " true" ] ; then
+                    # If this *is* a fork, get the upstream URL; should be the
+                    # first "ssh_url" value after the "parent" data starts
+                    upstream="$(echo "$github_data" | grep -A 100 '"parent"' | grep '"ssh_url"' | cut -d ':' -f 2- | cut -d '"' -f 2 | head -n 1 | sed 's/^git@//')"
+                    echo "GitHub says this repository is a fork; adding a new 'upstream' remote at:"
+                    echo "$upstream"
+                    git remote add upstream "$upstream"
+                fi
+            fi
+        fi
         for remote in $(git remote)
         do
             (
