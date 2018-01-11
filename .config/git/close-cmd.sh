@@ -43,8 +43,11 @@ then
     fi
 fi
 
+remote="$(git rev-parse --abbrev-ref --symbolic-full-name "$branch@{u}" | cut -d '/' -f1)"
+
 git merge "$branch" --gpg-sign --no-edit -m "Merge \"$branch\" into \"$(git rev-parse --abbrev-ref HEAD)\"
 
 Closes #$issue"
 
 git push && git branch -df  "$branch"
+git push "$remote" --delete "$branch"
