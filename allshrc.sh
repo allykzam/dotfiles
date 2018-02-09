@@ -245,6 +245,38 @@ export SSH_AUTH_SOCK
 # Alias for the logrepos script
 alias logrepos=$HOME/dev/dotfiles/logrepos.sh
 
+
+# This is a helper for use on NixOS, which grabs the git commit for the current
+# environment, checks for updates, and then grabs the git commit for the updated
+# environment. If the commits differ, it produces a GitHub URL where the changes
+# can be reviewed. This is not quite as helpful as pacman's `VerbosePkgLists`
+# option on Arch linux, but is good enough that I can see which things I might
+# break by updating.
+nix-check-update(){
+    local oldCommit, newCommit
+
+    oldCommit=$(sudo nix-instantiate --find-file nixpkgs)
+    oldCommit=$(dirname "$oldCommit")
+    oldCommit=$(readlink "$oldCommit" | rev | cut -d '.' -f 1 | rev | cut -d '/' -f 1)
+
+    sudo nix-channel --update nixos
+
+    newCommit=$(sudo nix-instantiate --find-file nixpkgs)
+    newCommit=$(dirname "$newCommit")
+    newCommit=$(readlink "$newCommit" | rev | cut -d '.' -f 1 | rev | cut -d '/' -f 1)
+
+    if [[ "${newCommit:-}" == "${oldCommit:-}" ]] ; then
+        echo "Nothing has changed"
+    else
+        echo "Changes can be reviewed here:"
+        echo "https://github.com/NixOS/nixpkgs-channels/compare/$oldCommit...$newCommit"
+        echo "If they look good, run:"
+        echo "sudo nixos-rebuild switch"
+    fi
+}
+
+
+
 # Function for starting tmux and configuring it for git on different machines
 #
 # This currently chooses its setup based on the console size, so that, e.g., all
