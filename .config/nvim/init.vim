@@ -8,6 +8,7 @@ set spell                               " enable spell-check
                                         " use the `zg` command to add the word
                                         " under the cursor to the dictionary
 set background=light                    " I don't like vim's dark colors :[
+color desert                            " I've given up and moved to the desert color theme
 " add highlighting for trailing whitespace
 highlight ExtraWhitespace ctermbg=red
 match ExtraWhitespace /\s\+$/
