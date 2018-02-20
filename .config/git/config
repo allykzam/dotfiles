@@ -52,6 +52,7 @@
     default = current
 [merge]
     ff = false
+    conflictstyle = diff3
 [status]
     showUntrackedFiles = all
 [tag]
