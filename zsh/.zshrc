@@ -163,8 +163,8 @@ fi
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
 # OSX's Terminal.app sends these for HOME and END
-bindkey "\e[7~" beginning-of-line
-bindkey "\e[8~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 # Ctrl+Left/Right arrows
-bindkey "\e[5D" backward-word
-bindkey "\e[5C" forward-word
+bindkey "\e[1;5D" backward-word
+bindkey "\e[1;5C" forward-word
