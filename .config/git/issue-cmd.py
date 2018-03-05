@@ -5,7 +5,7 @@ import json,sys
 data=json.load(sys.stdin)
 
 if len(data) == 0:
-    print "No data"
+    print("No data")
 else:
     for issue in data:
         fileName = ".git/issues/{0}".format(issue["number"])
