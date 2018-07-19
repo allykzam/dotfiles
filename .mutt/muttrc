@@ -123,6 +123,10 @@ color index green default "~N"
 color index red default "~D"
 # Messages which include me in the To/CC AND are new
 color index magenta default "~N ~p"
+# Show attachments in the pager with red
+color attachment brightred default
+# Show the author name in bold red if the message has attachments
+color index_author brightred default "~X 1-"
 
 
 # Stop skipping over things when pushing up/down arrows
