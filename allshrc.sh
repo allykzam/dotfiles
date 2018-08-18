@@ -232,10 +232,13 @@ grepi(){
     grep -i $@
 }
 
+localUname="$(uname -a)"
 # Use gpg-agent for ssh keys
 if [[ "$(uname)" == "Darwin" ]]; then
     SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
     gpg-connect-agent /bye
+elif [[ "$localUname" = *"Linux"* && "$localUname" = *"Microsoft"* ]]; then
+    SSH_AUTH_SOCK="/mnt/c/Users/perezan/AppData/Roaming/gnupg/S.gpg-agent.ssh"
 else
     SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
     gpg-agent --daemon --pinentry-program /usr/bin/pinentry > /dev/null 2>&1
