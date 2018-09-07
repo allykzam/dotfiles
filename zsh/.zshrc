@@ -128,6 +128,12 @@ alias dirs="dirs -v"
 autoload -U colors
 colors
 
+localUname="$(uname -a)"
+if [[ "$localUname" = *Linux* && "$localUname" = *"Microsoft"* ]]; then
+    # This should convince tmux to stop using bash as its shell.
+    export SHELL=/usr/bin/zsh
+fi
+
 # if there's anything machine-specific in .local, run it
 if [ -e "$HOME/.local/.zshrc" ] ; then
     source "$HOME/.local/.zshrc"
