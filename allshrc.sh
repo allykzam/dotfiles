@@ -415,7 +415,7 @@ dashboard(){
         # into an unclaimed pane I use for terminal commands and a section that
         # shows the output from `show_git_status`, and a bottom section divided
         # into my current "to-do list" and the current weather/calendar.
-        if [[ "${TMUXDASHBOARDSIZE:-}" == "132 152" ]]; then
+        if [[ "${TMUXDASHBOARDSIZE:-}" == "131 152" ]]; then
             if [[ "${TMUX_PANE:-}" == "%0" ]]; then
                 if [[ "$(tmux list-panes | wc -l)" == "1" ]] ; then
                     tmux split-window -v
