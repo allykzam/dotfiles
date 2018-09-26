@@ -339,7 +339,7 @@ tmuxgit(){
         # pane that I usually use for `git commit`, and then an even smaller one
         # that I use for `git commit` when I find myself needing `git lg1` up
         # top /and/ `git diff` in the middle pane. Weird, but it works for me.
-        if [[ "${TMUXGITSIZE:-}" == "132 152" ]]; then
+        if [[ "${TMUXGITSIZE:-}" == "131 152" ]]; then
             if [[ "${TMUX_PANE:-}" == "%0" ]]; then
                 tmux split-window -v
                 tmux resize-pane -D 19
