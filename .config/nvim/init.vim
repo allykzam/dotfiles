@@ -70,9 +70,11 @@ set mouse=a                             " allow mouse support when possible
 " misc
 set nrformats=alpha,octal,hex           " allow ^A/^X to {in,de}crement letters,
                                         " octal values, and hex
-set allowrevins                         " allow ^_ in insert mode to toggle
-                                        " reverse insert mode; fun to play
-                                        " with :)
+set noallowrevins                       " with `allowrevins`, ^_ turns on
+                                        " reverse insert mode, but also turns
+                                        " on hebrew mode? I don't typically
+                                        " need to type in hebrew. so that part
+                                        " is less useful.
 set autoread                            " re-load files that have been changed
                                         " externally w/o any changes in vim
 set confirm                             " gives a dialog when something would
