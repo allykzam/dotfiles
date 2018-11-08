@@ -1,6 +1,7 @@
 #!/bin/bash
 
 homepath="$(git config --get github.sync-homepath)"
+hubpath="$(git config --get github.sync-hubpath)"
 
 function syncRepo() {
     local repoName="$1"
@@ -54,10 +55,13 @@ function syncRepo() {
                 else
                     break
                 fi
-                local homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+                local homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2- | cut -d ' ' -f 1)"
                 if [ "$homerepo" == "" ] ; then
                     echo "The $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
                     break
+                fi
+                if [[ "$homerepo" == *"ssh.github.com"* ]] ; then
+                    homerepo="$(echo "$homerepo" | sed -r 's|(//git@)?ssh.github.com(:443)?/?||')"
                 fi
 
                 git fetch "$remote"
@@ -109,7 +113,7 @@ fi
                 repoName="$(echo $ghRepo | cut -d '/' -f 2)"
                 if [ ! -d "$repoName" ] && [ ! -d "$(echo $ghRepo | sed 's:/:_:g')" ] ; then
                     echo "$repoName doesn't exist locally; cloning from $ghRepo"
-                    git clone --quiet "github.com:$ghRepo.git"
+                    git clone --quiet "$hubpath$ghRepo.git"
                 fi
             done
             pageNumber=$((pageNumber+1))
@@ -138,7 +142,7 @@ fi
             for gist in $jsonData
             do
                 gistId="$(echo $gist | rev | cut -d '.' -f 2 | cut -d '/' -f 1 | rev)"
-                gistUrl="$(echo $gist | sed 's|https://gist.github.com/|github.com:|')"
+                gistUrl="$(echo $gist | sed "s|https://gist.github.com/|$hubpath|" )"
                 if [ ! -d "$gistId" ] ; then
                     echo "Gist ID $gistId doesn't exist locally; cloning from $gistUrl"
                     git clone --quiet "$gistUrl"
