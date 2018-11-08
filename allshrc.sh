@@ -107,7 +107,7 @@ function show_git_status() {
         branchName="$(git rev-parse --abbrev-ref HEAD)"
         upstream="$(git config --get "branch.$branchName.remote" || true)"
         if [[ "$upstream" != "" ]]; then
-            upstream="$(git rev-list --left-right --count "$branchName...$upstream/$branchName")"
+            upstream="$(git rev-list --left-right --count "$branchName...$upstream/$branchName" 2>/dev/null || true)"
         fi
 
         if [[ "$branchName" =~ issue/.* ]] ; then
