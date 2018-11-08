@@ -36,8 +36,8 @@ then
     fi
     if [ "$project" == "" ]
     then
-        git commit -S -m "Update release notes for $version"
+        RUNNING_GIT_CLOSE=true git commit -S -m "Update release notes for $version"
     else
-        git commit -S -m "Update $project release notes for $version"
+        RUNNING_GIT_CLOSE=true git commit -S -m "Update $project release notes for $version"
     fi
 fi
