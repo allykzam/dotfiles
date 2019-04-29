@@ -14,8 +14,8 @@ else
 fi
 
 user_token=$(git config --get github.access-token)
-github_origin=$(git remote -v | grep origin | grep github.com | grep fetch)
-repo_owner=$(echo "$github_origin" | cut -d ':' -f 2 | cut -d '/' -f 1)
+github_origin=$(git remote -v | grep origin | grep github.com | grep fetch | sed 's|ssh://git@ssh.github.com:443/|github.com:|')
+repo_owner=$(echo "$github_origin" | rev | cut -d ':' -f 1 | rev | cut -d '/' -f 1)
 repo_name=$(echo "$github_origin" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 repo_name=$(basename "$repo_name" | sed 's/.git//')
 
@@ -36,8 +36,6 @@ fi
 mkdir "$gitDir/issues"
 
 getData
-
-echo "$gitDir"
 
 options=()
 index=0
