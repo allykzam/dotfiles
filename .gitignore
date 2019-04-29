@@ -10,3 +10,4 @@
 .config/nvim/.netrwhist
 .config/htop/*
 .config/karabiner/*
+zsh/.zcompdump
