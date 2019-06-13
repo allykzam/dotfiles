@@ -24,10 +24,7 @@
     this = !git init && git commit --allow-empty -m \"Initial commit\"
     cshow = !clear && git show --show-signature
     ls-cached-ignored = ls-files --cached --ignored --exclude-standard
-# "sync" pulls then pushes; I do this to get changes from one server and push
-# them to another, which generally requires that a git remote has multiple URL
-# entries.
-    sync = !git pull && git push && git push --tags
+    ff = !git merge --ff-only origin/$(git rev-parse --abbrev-ref HEAD)
 # diff aliases
     d = diff
     dif = diff
@@ -40,6 +37,7 @@
     cwd = !clear && git wd
     cds = !clear && git sd
     cwds = !clear && git swd
+# issue/release branching helpers
     close = !~/.config/git/close-cmd.sh
     relnotes = !~/.config/git/notes-cmd.sh
     issue = !~/.config/git/issue-cmd.sh
