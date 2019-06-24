@@ -40,6 +40,7 @@
 # issue/release branching helpers
     close = !~/.config/git/close-cmd.sh
     relnotes = !~/.config/git/notes-cmd.sh
+    rel = !git fetch && git relnotes && git push -u
     issue = !~/.config/git/issue-cmd.sh
 [color]
     ui = auto
