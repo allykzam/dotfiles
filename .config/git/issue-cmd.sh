@@ -19,6 +19,11 @@ repo_owner=$(echo "$github_origin" | rev | cut -d ':' -f 1 | rev | cut -d '/' -f
 repo_name=$(echo "$github_origin" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 repo_name=$(basename "$repo_name" | sed 's/.git//')
 
+if [ "$user_token" == "" ] ; then
+    echo "No user token has been configured. Set one up with git as github.access-token in one of your local .gitconfig files."
+    exit 1
+fi
+
 function getData() {
     jsonData=$(curl -s "https://api.github.com/repos/$repo_owner/$repo_name/issues?access_token=$user_token")
     result=$(echo "$jsonData" | ~/dev/dotfiles/.config/git/issue-cmd.py)
