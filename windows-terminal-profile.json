@@ -55,7 +55,7 @@
             "historySize": 9001,
             "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
             "name": "Windows PowerShell",
-            "padding": "0, 0, 0, 0",
+            "padding": "10,1,0,10",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
             "useAcrylic": false
@@ -73,7 +73,7 @@
             "historySize": 9001,
             "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
             "name": "cmd",
-            "padding": "0, 0, 0, 0",
+            "padding": "10,1,0,10",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
             "useAcrylic": true
@@ -86,7 +86,7 @@
             "cursorColor": "#FFFFFF",
             "cursorShape": "filledBox",
             "fontFace": "Courier New",
-            "padding": "15,1,0,10",
+            "padding": "10,1,0,10",
             "fontSize": 10,
             "guid": "{72a72e31-9515-4a4f-8a24-186ef1a10a22}",
             "historySize": 9001,
