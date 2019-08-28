@@ -8,6 +8,8 @@
         "initialRows" : 30,
         "keybindings" :
         [
+            { "command": "copy"          , "keys": [ "ctrl+c"           ] },
+            { "command": "paste"         , "keys": [ "ctrl+v"           ] },
             { "command": "newTab"        , "keys": [ "ctrl+t"           ] },
             { "command": "newTabProfile0", "keys": [ "ctrl+shift+1"     ] },
             { "command": "newTabProfile1", "keys": [ "ctrl+shift+2"     ] },
