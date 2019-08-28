@@ -2,7 +2,8 @@
     "globals" :
     {
         "alwaysShowTabs" : true,
-        "defaultProfile" : "{72a72e31-9515-4a4f-8a24-186ef1a10a22}",
+        "copyOnSelect" : false,
+        "defaultProfile" : "{2c4de342-38b7-51cf-b940-2309a097f518}",
         "initialCols" : 120,
         "initialRows" : 30,
         "keybindings" :
@@ -24,15 +25,15 @@
             { "command": "scrollDownPage", "keys": [ "ctrl+shift+pgdn"  ] },
             { "command": "scrollUp"      , "keys": [ "ctrl+shift+up"    ] },
             { "command": "scrollUpPage"  , "keys": [ "ctrl+shift+pgup"  ] },
-            { "command": "switchToTab0"  , "keys": [ "alt+1"            ] },
-            { "command": "switchToTab1"  , "keys": [ "alt+2"            ] },
-            { "command": "switchToTab2"  , "keys": [ "alt+3"            ] },
-            { "command": "switchToTab3"  , "keys": [ "alt+4"            ] },
-            { "command": "switchToTab4"  , "keys": [ "alt+5"            ] },
-            { "command": "switchToTab5"  , "keys": [ "alt+6"            ] },
-            { "command": "switchToTab6"  , "keys": [ "alt+7"            ] },
-            { "command": "switchToTab7"  , "keys": [ "alt+8"            ] },
-            { "command": "switchToTab8"  , "keys": [ "alt+9"            ] }
+            { "command": "switchToTab0"  , "keys": [ "ctrl+alt+1"       ] },
+            { "command": "switchToTab1"  , "keys": [ "ctrl+alt+2"       ] },
+            { "command": "switchToTab2"  , "keys": [ "ctrl+alt+3"       ] },
+            { "command": "switchToTab3"  , "keys": [ "ctrl+alt+4"       ] },
+            { "command": "switchToTab4"  , "keys": [ "ctrl+alt+5"       ] },
+            { "command": "switchToTab5"  , "keys": [ "ctrl+alt+6"       ] },
+            { "command": "switchToTab6"  , "keys": [ "ctrl+alt+7"       ] },
+            { "command": "switchToTab7"  , "keys": [ "ctrl+alt+8"       ] },
+            { "command": "switchToTab8"  , "keys": [ "ctrl+alt+9"       ] }
         ],
         "requestedTheme" : "system",
         "showTabsInTitlebar" : true,
@@ -86,16 +87,15 @@
             "cursorColor": "#FFFFFF",
             "cursorShape": "filledBox",
             "fontFace": "Courier New",
-            "padding": "10,1,0,10",
             "fontSize": 10,
-            "guid": "{72a72e31-9515-4a4f-8a24-186ef1a10a22}",
+            "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
             "historySize": 9001,
             "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
             "name": "WSL",
+            "padding": "10,1,0,10",
             "snapOnInput": true,
             "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false,
-            "tabTitle": "WSL"
+            "useAcrylic": false
         }
     ],
     "schemes" :
