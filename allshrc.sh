@@ -215,6 +215,11 @@ alias gut=git
 # Alias "todo" as the to-do script
 alias todo="$HOME/dev/dotfiles/todo.sh"
 
+cdgit(){
+    cd ~/dev/$1
+    echo -n -e "\033]0;$(basename "$(pwd)")\007"
+}
+
 # Custom function for "sudo" so that we get a fun error message as a result
 sudopath="$(which sudo)"
 sudo(){
