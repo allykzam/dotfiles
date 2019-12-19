@@ -31,7 +31,7 @@ for dir in ~/dev/* ~/gists/*
 do
     (
         cd "$dir" 2>/dev/null
-        log=$(git lg1 --all --since="$1" --author="$name"  2>/dev/null)
+        log=$(git lg2 --all --since="$1" --author="$name"  2>/dev/null)
         if [ "$log" == "" ]; then
             true
         else
