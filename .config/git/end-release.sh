@@ -22,22 +22,26 @@ git merge "origin/$branch" --ff-only
 lastMerge="$(git merge-base origin/master HEAD)"
 lastReleaseCommit="$(git rev-parse HEAD)"
 
+RED='\033[0;31m'
+CLEAR='\033[0m'
+CYAN='\033[0;36m'
+
 if [ ! "$lastMerge" == "$lastReleaseCommit" ] ; then
-    echo "Current release branch has not been merged to master yet"
+    echo -e "${RED}Current release branch has not been merged to master yet${CLEAR}"
     exit 1
 fi
 
 echo
-echo "Release branch has been completed; cleaning up"
+echo -e "${CYAN}Release branch has been completed; cleaning up${CLEAR}"
 echo
-echo "Updating local 'master' branch"
+echo -e "${CYAN}Updating local 'master' branch${CLEAR}"
 git checkout master
 git merge origin/master --ff-only
 echo
-echo "Updating local 'dev' branch"
+echo -e "${CYAN}Updating local 'dev' branch${CLEAR}"
 git checkout dev
 git merge origin/dev --ff-only
 echo
-echo "Deleting release branch"
+echo -e "${CYAN}Deleting release branch${CLEAR}"
 git branch -d "$branch"
 git push origin --delete "$branch"
