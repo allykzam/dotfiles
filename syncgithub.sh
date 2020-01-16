@@ -53,12 +53,12 @@ function syncRepo() {
                     echo
                     echo "Fetching upstream..."
                 else
-                    break
+                    exit
                 fi
                 local homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2- | cut -d ' ' -f 1)"
                 if [ "$homerepo" == "" ] ; then
-                    echo "The $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
-                    break
+                    echo "The remote $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
+                    exit
                 fi
                 if [[ "$homerepo" == *"ssh.github.com"* ]] ; then
                     homerepo="$(echo "$homerepo" | sed -r 's|(//git@)?ssh.github.com(:443)?/?||')"
@@ -74,7 +74,7 @@ function syncRepo() {
                 if [ $? -ne 0 ] ; then
                     echo "Can't push to backup system; either the connection failed, or this repository doesn't exist there."
                     echo "There should be a bare repository located at $homepath$remoteGitDir$homerepo"
-                    break
+                    exit
                 fi
 
                 git push --quiet "$homepath$remoteGitDir$homerepo" --tags
