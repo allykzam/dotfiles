@@ -29,8 +29,9 @@ function syncRepo() {
                 # Get the `user/repo` part of the origin URL
                 upstream="$(echo "$homerepo" | sed 's/.git$//')"
                 local access_token="$(git config --get github.access-token)"
+                local user_name="$(git config --get github.user)"
                 # Get GitHub's data for this repository
-                local github_data="$(curl -s https://api.github.com/repos/$upstream?access_token=$access_token)"
+                local github_data="$(curl -s -u $user_name:$access_token https://api.github.com/repos/$upstream)"
                 # Check to see if this repository is a fork
                 local fork_status="$(echo "$github_data" | grep '"fork"' | cut -d ':' -f 2 | cut -d ',' -f 1 | head -n 1)"
                 if [ "${fork_status:-}" == " true" ] ; then
@@ -99,13 +100,16 @@ fi
 (
     cd "$HOME/dev"
     IFS=$'\n\t'
-    user_token="$(git config --get github.access-token)"
+    user_token="$(git config --get github.access-token)"n
+    user_name="$(git config --get github.user)"
     if [ "$user_token" == "" ] ; then
         echo "No token present under the github.access-token git config value" >&2
+    elif [ "$user_name" == "" ] ; then
+        echo "No user name present under the github.user git config value" >&2
     else
         pageNumber=1
         echo "Getting page $pageNumber of your GitHub repositories"
-        jsonData="$(curl -s https://api.github.com/user/repos?access_token=$user_token | grep full_name | cut -d ':' -f 2 | cut -d '"' -f 2)"
+        jsonData="$(curl -s -u $user_name:$user_token https://api.github.com/user/repos | grep full_name | cut -d ':' -f 2 | cut -d '"' -f 2)"
         while [ ${#jsonData} -gt 1 ] ;
         do
             for ghRepo in $jsonData
@@ -118,7 +122,7 @@ fi
             done
             pageNumber=$((pageNumber+1))
             echo "Getting page $pageNumber of your GitHub repositories"
-            jsonData="$(curl -s https://api.github.com/user/repos?access_token=$user_token\&page=$pageNumber | grep full_name | cut -d ':' -f 2 | cut -d '"' -f 2)"
+            jsonData="$(curl -s -u $user_name:$user_token https://api.github.com/user/repos?page=$pageNumber | grep full_name | cut -d ':' -f 2 | cut -d '"' -f 2)"
         done
     fi
 )
@@ -136,7 +140,7 @@ fi
     else
         pageNumber=1
         echo "Getting page $pageNumber of your GitHub gists"
-        jsonData="$(curl -s https://api.github.com/users/$user_name/gists?access_token=$user_token | grep git_pull_url | cut -d '"' -f 4)"
+        jsonData="$(curl -s -u $user_name:$user_token https://api.github.com/users/$user_name/gists | grep git_pull_url | cut -d '"' -f 4)"
         while [ ${#jsonData} -gt 1 ] ;
         do
             for gist in $jsonData
@@ -150,7 +154,7 @@ fi
             done
             pageNumber=$((pageNumber+1))
             echo "Getting page $pageNumber of your GitHub gists"
-            jsonData="$(curl -s https://api.github.com/users/$user_name/gists?access_token=$user_token\&page=$pageNumber | grep git_pull_url | cut -d '"' -f 4)"
+            jsonData="$(curl -s -u $user_name:$user_token https://api.github.com/users/$user_name/gists?page=$pageNumber | grep git_pull_url | cut -d '"' -f 4)"
         done
     fi
 )
