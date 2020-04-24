@@ -34,6 +34,7 @@
     swd = diff --staged --word-diff
     sd = diff --staged
     csv = diff --color-words="[^[:space:],]+" -U0
+    csvall = !git log master..origin/master | grep commit | cut -d ' ' -f 2 | tac | xargs git cshow --color-words='[^[:space:],]+' -U0
 # clear & diff aliases
     cd = !clear && git diff
     cwd = !clear && git wd
