@@ -100,7 +100,7 @@ fi
 (
     cd "$HOME/dev"
     IFS=$'\n\t'
-    user_token="$(git config --get github.access-token)"n
+    user_token="$(git config --get github.access-token)"
     user_name="$(git config --get github.user)"
     if [ "$user_token" == "" ] ; then
         echo "No token present under the github.access-token git config value" >&2
