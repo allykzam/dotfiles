@@ -4,6 +4,8 @@
     name = Anthony Perez
     email = anthony@amazingant.com
     signingkey = 5F7F02A9D0682C8814D36996388BEC273397CC44
+[init]
+    defaultBranch = main
 [github]
     user = amazingant
 [core]
