@@ -19,7 +19,7 @@
     pretty = fuller
 [alias]
     sb = status -sb
-    lg1 = log --no-show-signature --graph --exclude=master --branches --color --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)-- %an (%G?)%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    lg1 = log --no-show-signature --graph --exclude=master --exclude=main --branches --color --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)-- %an (%G?)%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
     lg2 = log --no-show-signature --graph --branches --color --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)-- %an (%G?)%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
     clearautotags = !git tag | grep AutoTag- | xargs git tag -d
     tagg = !git tag | grep -v AutoTag-
@@ -36,7 +36,7 @@
     swd = diff --staged --word-diff
     sd = diff --staged
     csv = diff --color-words="[^[:space:],]+" -U0
-    csvall = !git log master..origin/master | grep commit | cut -d ' ' -f 2 | tac | xargs git cshow --format=format:'%Cblue%H - %cd%Creset%b' --color-words='[^[:space:],]+' -U0
+    csvall = !git log main..origin/main | grep commit | cut -d ' ' -f 2 | tac | xargs git cshow --format=format:'%Cblue%H - %cd%Creset%b' --color-words='[^[:space:],]+' -U0
 # clear & diff aliases
     cd = !clear && git diff
     cwd = !clear && git wd

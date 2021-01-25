@@ -18,13 +18,13 @@ do
         if [ "$remote_sha" != $z40 ]
         then
             case "$local_ref" in
-                "refs/heads/master" | "refs/heads/dev")
+                "refs/heads/master" | "refs/heads/main" | "refs/heads/dev")
                     if [[ "$url" == *"github.com"* ]]
                     then
                         git verify-commit "$local_sha" > /dev/null
                         if [ $? = 1 ]
                         then
-                            echo "Cannot push unsigned commits to dev or master; run this to allow for this repo:"
+                            echo "Cannot push unsigned commits to master/main/dev; bypass this check by pushing again with '--no-verify', or run this to permanently allow for this repo:"
                             echo "git config --add github.unsigned-pushes allow"
                             exit 1
                         fi

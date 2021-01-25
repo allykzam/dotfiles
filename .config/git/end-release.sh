@@ -19,7 +19,7 @@ echo "Fetching from 'origin'"
 git fetch
 git merge "origin/$branch" --ff-only
 
-lastMerge="$(git merge-base origin/master HEAD)"
+lastMerge="$(git merge-base origin/main HEAD)"
 lastReleaseCommit="$(git rev-parse HEAD)"
 
 RED='\033[0;31m'
@@ -27,16 +27,16 @@ CLEAR='\033[0m'
 CYAN='\033[0;36m'
 
 if [ ! "$lastMerge" == "$lastReleaseCommit" ] ; then
-    echo -e "${RED}Current release branch has not been merged to master yet${CLEAR}"
+    echo -e "${RED}Current release branch has not been merged to main yet${CLEAR}"
     exit 1
 fi
 
 echo
 echo -e "${CYAN}Release branch has been completed; cleaning up${CLEAR}"
 echo
-echo -e "${CYAN}Updating local 'master' branch${CLEAR}"
-git checkout master
-git merge origin/master --ff-only
+echo -e "${CYAN}Updating local 'main' branch${CLEAR}"
+git checkout main
+git merge origin/main --ff-only
 echo
 echo -e "${CYAN}Updating local 'dev' branch${CLEAR}"
 git checkout dev

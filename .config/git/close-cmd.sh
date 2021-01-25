@@ -11,11 +11,14 @@ if [[ "$currentBranch" =~ issue/.* ]] ; then
     if [ "$branch" == "master" ] ; then
         branch="$currentBranch"
         git checkout master
+    elif [ "$branch" == "main" ] ; the
+        branch="$currentBranch"
+        git checkout main
     elif [ "$branch" == "dev" ] ; then
         branch="$currentBranch"
         git checkout dev
     else
-        echo "Currently on $currentBranch which appears to be an issue branch, but you specified $branch which does not appear to be master/dev?"
+        echo "Currently on $currentBranch which appears to be an issue branch, but you specified $branch which does not appear to be master/main/dev?"
         exit 1
     fi
 fi
