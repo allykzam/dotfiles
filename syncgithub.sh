@@ -58,7 +58,14 @@ function syncRepo() {
                 fi
                 local homerepo="$(git remote -v | grep $remote | grep fetch | grep github | cut -d ':' -f 2- | cut -d ' ' -f 1)"
                 if [ "$homerepo" == "" ] ; then
-                    echo "The remote $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
+                    if [ "$remote" == "origin" ] ; then
+                        echo "The remote $remote doesn't appear to be a valid GitHub SSH URL? Fetching changes, but will not be able to push to the backup system."
+                        git fetch "$remote"
+                        git fetch "$remote" --tags
+                        git fetch "$remote" --prune
+                    else
+                        echo "The remote $remote doesn't appear to be a valid GitHub SSH URL? Skipping..."
+                    fi
                     exit
                 fi
                 if [[ "$homerepo" == *"ssh.github.com"* ]] ; then
