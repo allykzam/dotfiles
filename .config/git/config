@@ -75,10 +75,16 @@
 [stash]
     showPatch = true
 [transfer]
-    fsckobjects = true
+    fsckObjects = true
+[fetch]
+    fsckObjects = true
+[receive]
+    fsckObjects = true
 [log]
     showSignature = true
 [protocol "http"]
+    allow = never
+[protocol "git"]
     allow = never
 [diff]
     colorMoved = default
