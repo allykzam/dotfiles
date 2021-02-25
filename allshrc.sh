@@ -139,8 +139,8 @@ function show_git_status() {
             issues="$issues [  0],"
         fi
 
-        if [[ "$branchName" != "master" ]] ; then
-            unreleasedChanges="$(git log HEAD ^origin/master --no-merges --oneline --no-show-signature 2>/dev/null | wc -l)"
+        if [[ "$branchName" != "main" ]] ; then
+            unreleasedChanges="$(git log HEAD ^origin/main --no-merges --oneline --no-show-signature 2>/dev/null | wc -l)"
             if [[ "$unreleasedChanges" != "0" && "$unreleasedChanges" != "" ]] ; then
                 print=1
                 declare -R3 unreleasedChanges
