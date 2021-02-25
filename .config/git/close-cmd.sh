@@ -11,7 +11,7 @@ if [[ "$currentBranch" =~ issue/.* ]] ; then
     if [ "$branch" == "master" ] ; then
         branch="$currentBranch"
         git checkout master
-    elif [ "$branch" == "main" ] ; the
+    elif [ "$branch" == "main" ] ; then
         branch="$currentBranch"
         git checkout main
     elif [ "$branch" == "dev" ] ; then
