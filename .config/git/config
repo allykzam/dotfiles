@@ -66,8 +66,8 @@
 # I typically only use the `-beta` suffix, but here's some extras anyway
     prereleaseSuffix = -alpha
     prereleaseSuffix = -beta
-    prereleaseSuffic = -pre
-    prereleaseSuffic = -rc
+    prereleaseSuffix = -pre
+    prereleaseSuffix = -rc
 [annex]
     backends = SHA512E
 [gc]
