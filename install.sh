@@ -124,7 +124,7 @@ done
 zshenvpath=""
 if echo "$unameDetails" | grep -q ARCH ; then
     zshenvpath="/etc/zsh/zshenv"
-elif echo "$unameDetails" | grep -q Microsoft ; then
+elif echo "$unameDetails" | grep -q icrosoft ; then
     zshenvpath="/etc/zsh/zshenv"
 elif echo "$unameDetails" | grep -q Darwin ; then
     zshenvpath="/etc/zshenv"
