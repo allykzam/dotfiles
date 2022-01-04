@@ -6,9 +6,9 @@ set -euo pipefail
 nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "allshrc.sh" ".DS_Store" "logrepos.sh" "gpg.conf" "gpg-agent.conf" "personal_gpg.pub" "work_auth_gpg.pub" "todo.sh" "start-voltron")
 
 # Things to install:
-tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "mono" "fontconfig")
-linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh" "sed")
-osxtools=("gnu-sed" "binutils")
+tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "neovim" "dialog")
+linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh" "sed" "mono" "fontconfig")
+osxtools=("gnu-sed" "binutils" "mono")
 
 # OS information
 unameDetails=$(uname -a)
