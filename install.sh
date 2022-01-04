@@ -29,6 +29,11 @@ elif echo "$unameDetails" | grep -q Darwin ; then
     brew upgrade
     pkgmanager="brew install"
     tools=("${tools[@]}" "${osxtools[@]}")
+elif lsb_release -i | grep -q "Ubuntu" ; then
+    echo "Installing updates..."
+    sudo apt update
+    sudo apt upgrade
+    pkgmanager="sudo apt install"
 fi
 
 # If running on WSL on a Win10 box, assume the user is going to deal with
