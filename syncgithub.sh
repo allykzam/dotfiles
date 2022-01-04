@@ -123,8 +123,10 @@ fi
             do
                 repoName="$(echo $ghRepo | cut -d '/' -f 2)"
                 if [ ! -d "$repoName" ] && [ ! -d "$(echo $ghRepo | sed 's:/:_:g')" ] ; then
-                    echo "$repoName doesn't exist locally; cloning from $ghRepo"
-                    git clone --quiet "$hubpath$ghRepo.git"
+                    echo
+                    echo "$repoName doesn't exist locally; cloning from $hubpath$ghRepo"
+                    git clone "$hubpath$ghRepo.git"
+                    echo
                 fi
             done
             pageNumber=$((pageNumber+1))
