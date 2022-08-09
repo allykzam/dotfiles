@@ -183,24 +183,6 @@ function show_git_status() {
     done
 }
 
-# When running on OSX...
-if [ "$(uname)" '==' "Darwin" ]; then
-    # Reset the path with the gnubin stuff up-front so that the GNU version of
-    # coreutils (thank-you, homebrew) gets used instead of OSX's BSD versions
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    # MANPATH is also here for GNU coreutils
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-fi
-
-# The "g" stands for "good" because the macOS version of /usr/bin/strings should
-# be called "sstrings" (the "s" is for "sucks"). If "gstrings" exists on the
-# local system, alias "strings" to it so that e.g. the `-e` flag will be
-# available.
-gstrings="$(which gstrings || true)"
-if [[ "${gstrings:-}" != "" ]]; then
-    alias "strings=$gstrings"
-fi
-
 # Add these so there's a place in the home directory to put binaries
 export PATH="$HOME/.local/bin:$HOME/.local/lib:$PATH"
 
