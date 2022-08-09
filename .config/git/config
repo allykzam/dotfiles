@@ -1,8 +1,8 @@
 # This file is intended to be symlinked to $HOME/.config/git/config
 # Combine this with another config at $HOME/.gitconfig for system-specifics
 [user]
-    name = Anthony Perez
-    email = anthony@amazingant.com
+    name = Alison Perez
+    email = alison@amazingant.com
     signingkey = 5F7F02A9D0682C8814D36996388BEC273397CC44
 [init]
     defaultBranch = main
