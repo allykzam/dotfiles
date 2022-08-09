@@ -86,3 +86,4 @@
     allow = never
 [diff]
     colorMoved = default
+    renames = copies
