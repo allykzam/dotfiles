@@ -26,6 +26,7 @@
     cshow = !clear && git show --show-signature
     ls-cached-ignored = ls-files --cached --ignored --exclude-standard
     ff = !git merge --ff-only origin/$(git rev-parse --abbrev-ref HEAD)
+    mystat = "!git log --no-merges --author=\"$(git config user.name)\" --pretty=tformat: --numstat | awk '{inserted+=$1; deleted+=$2; delta+=$1-$2; ratio=deleted/inserted} END {printf \"Commit stats:\\n- Lines added (total)....  %s\\n- Lines deleted (total)..  %s\\n- Total lines (delta)....  %s\\n- Add./Del. ratio (1:n)..  1 : %s\\n\", inserted, deleted, delta, ratio }' -"
 # diff aliases
     d = diff
     dif = diff
