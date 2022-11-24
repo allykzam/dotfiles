@@ -115,14 +115,30 @@ if [ -e "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+localUname="$(uname -a)"
+if [[ "$localUname" = *Linux* && "$localUname" = *"Microsoft"* ]]; then
+    # This should convince tmux to stop using bash as its shell.
+    export SHELL=/usr/bin/zsh
+fi
+
 # ls -l -> long listing format
 # ls -a -> list everything
 # ls -h -> human-friendly sizes, via powers of 1024
 # ls -v -> sort version numbers better?
 # ls -F -> add '/' on end of dirs, '*' on executables, etc.
 LSOPTS='-lahvF --time-style=long-iso --color=auto'
-alias ls="ls $LSOPTS"
-alias ll="ls $LSOPTS | less -FX"
+EXAOPTS='-lahF --time-style=long-iso --color=auto'
+if [[ "$localUname" = Darwin* ]]; then
+    LSOPTS='-lahvF --color=auto'
+fi
+exaPath="$(which exa || true)"
+if [[ "$exaPath" = */exa ]]; then
+    alias ls="exa $EXAOPTS"
+    alias ll="exa $EXAOPTS | less -FX"
+else
+    alias ls="ls $LSOPTS"
+    alias ll="ls $LSOPTS | less -FX"
+fi
 
 # zsh's `dirs` command outputs like `ls` does; adding `-v` puts each directory
 # on its own line and gives them numbers
@@ -131,12 +147,6 @@ alias dirs="dirs -v"
 # "load" colors?
 autoload -U colors
 colors
-
-localUname="$(uname -a)"
-if [[ "$localUname" = *Linux* && "$localUname" = *"Microsoft"* ]]; then
-    # This should convince tmux to stop using bash as its shell.
-    export SHELL=/usr/bin/zsh
-fi
 
 # if there's anything machine-specific in .local, run it
 if [ -e "$HOME/.local/.zshrc" ] ; then
