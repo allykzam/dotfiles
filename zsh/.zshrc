@@ -111,6 +111,10 @@ REPORTTIME=5                    # show the time a command took if >5s
 # don't do globbing when calling find or wget
 for command in find wget; alias $command="noglob $command"
 
+if [ -e "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # ls -l -> long listing format
 # ls -a -> list everything
 # ls -h -> human-friendly sizes, via powers of 1024
