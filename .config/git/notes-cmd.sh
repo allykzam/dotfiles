@@ -27,7 +27,7 @@ if [ "$notes" != "" ]
 then
     echo "$notes"
     notes=${notes:3}
-    version=$(head "$notes" -n 1 | grep "####" | cut -d ' ' -f 2)
+    version=$(head -n 1 "$notes" | grep "####" | cut -d ' ' -f 2)
     if [ "$version" == "" ]
     then
         echo "Release notes file does not start with release info:"
