@@ -178,6 +178,9 @@ if [ "$(uname)" = "Darwin" ] ; then
     bindkey "^[3;5~" delete-char
 fi
 
+# Enaable autocomplete for things like git commands
+autoload -Uz compinit && compinit
+
 # Make some keystrokes behave as expected
 # HOME and END keys
 bindkey "\e[1~" beginning-of-line
