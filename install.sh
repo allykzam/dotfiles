@@ -8,7 +8,7 @@ nolinkfiles=(".git" ".gitignore" ".gitmodules" "install.sh" "zshenv" "zsh" "alls
 # Things to install:
 tools=("vim" "tmux" "git" "zsh" "curl" "wget" "grep" "unzip" "less" "neovim" "dialog" "duf" "httpie" "bat" "exa")
 linuxtools=("sudo" "terminus-font" "fbterm" "fbv" "openssh" "sed" "mono" "fontconfig")
-osxtools=("gnu-sed" "binutils" "mono")
+osxtools=("gnu-sed" "binutils" "pinentry-mac" "htop" "ykman" "bmon")
 
 # OS information
 unameDetails=$(uname -a)
