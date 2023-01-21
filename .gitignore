@@ -10,4 +10,10 @@
 .config/nvim/.netrwhist
 .config/htop/*
 .config/karabiner/*
+.config/Microsoft*/*
+.config/NuGet/*
+.config/iterm2/*
+.config/xbuild/*
+.config/ILSpy.xml
 zsh/.zcompdump
+zsh/.zsh_sessions/*
