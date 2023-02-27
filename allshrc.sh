@@ -225,8 +225,8 @@ grepi(){
 localUname="$(uname -a)"
 # Use gpg-agent for ssh keys
 if [[ "$(uname)" == "Darwin" ]]; then
-    HOMEBREW_NO_AUTO_UPDATE=1
-    HOMEBREW_NO_INSTALL_CLEANUP=1
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_INSTALL_CLEANUP=1
 elif [[ "$localUname" = *"Linux"* && "$localUname" = *"Microsoft"* ]]; then
     SSH_AUTH_SOCK="/mnt/c/Users/amazingant/AppData/Roaming/gnupg/S.gpg-agent.ssh"
 else
