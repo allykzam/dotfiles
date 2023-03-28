@@ -1,31 +1,3 @@
-# Function for running fbterm with a "wallpaper"
-function fbterm-wallpaper() {
-    local wallpaper="$1"
-    # Remove the image path from the arguments
-    shift
-    # Remove the TTY path from the arguments
-    local old_tty="$1"
-    shift
-    # Hide the cursor
-    tput civis
-    # Run fbv with the following options:
-    # -c => don't clear the screen before/after display (leave it for fbterm)
-    # -i => don't show image information
-    # -k => stretch the image "using a 'color average' resizing routine"
-    # -e => "enlarge" the image to fill the screen
-    # -r => ignore aspect ratio while stretching/enlarging
-    # Related: need to find a better way to do this; passing an eof in with the
-    # letter Q to quit fbv works okay, but leaves a blank spot where the "q" was
-    # entered.
-    TERM=fbterm fbv -ciker "$wallpaper" << EOF
-q
-EOF
-    # Show the cursor again
-    tput cnorm
-    # Run fbterm with a background image, and set TERM; pass any remaining args
-    OLD_TTY="$old_tty" CURRENT_WALLPAPER="$wallpaper" FBTERM_BACKGROUND_IMAGE=1 TERM=fbterm fbterm "$@"
-}
-
 # When running directly on the linux ttys
 if [[ "$TERM" == "linux" ]] ; then
     case $(tty) in
@@ -35,40 +7,6 @@ if [[ "$TERM" == "linux" ]] ; then
             # Try to turn on numlock, but make sure return code is 0 even if it
             # doesn't work.
             setleds -D +num && true
-            # Decide what wallpaper to use. If a tty-specific wallpaper exists,
-            # use it; if not, check for a generic wallpaper.
-            ttynum=$(tty)
-            ttynum=${ttynum/\/dev\/tty/}
-            if [ -d "$HOME/.config/fbterm/wallpaper/random" ] ; then
-                wallpaper="$(shuf -n1 -e $HOME/.config/fbterm/wallpaper/random/*.jpg)"
-            elif [ -f "$HOME/.config/fbterm/wallpaper$ttynum.jpg" ]; then
-                wallpaper="$HOME/.config/fbterm/wallpaper$ttynum.jpg"
-            elif [ -f "$HOME/.config/fbterm/wallpaper.jpg" ]; then
-                wallpaper="$HOME/.config/fbterm/wallpaper.jpg"
-            else
-                wallpaper=""
-            fi
-            if [[ "$wallpaper" != "" ]]; then
-                fbterm-wallpaper "$wallpaper" "$(tty)" "$@"
-            else
-                OLD_TTY="$(tty)" TERM=fbterm fbterm
-            fi
-            # After fbterm exits, exit bash too
-            exit
-            ;;
-        /dev/pts/[0-9]*)
-            # If on a pseudo-terminal, check to see if the TMUX var is set
-            if [[ "${TMUX:-}" != "" ]] ; then
-                # If in tmux, just set TERM
-                export TERM=fbterm
-            else
-                # If not in tmux yet, set TERM, fix white, and start tmux
-                export TERM=fbterm
-                echo -en "\e[3;7;255;255;255}"
-#                CURRENT_WALLPAPER="${CURRENT_WALLPAPER:-}" tmux
-#                # Exit bash after tmux closes
-#                exit
-            fi
             ;;
         *)
     esac
@@ -194,9 +132,6 @@ alias got=git
 alias gti=git
 alias gut=git
 
-# Alias for neovim so it doesn't think it can't use colors
-#alias nvim="TERM=xterm-256color nvim"
-
 # Alias "todo" as the to-do script
 alias todo="$HOME/dev/dotfiles/todo.sh"
 
@@ -205,35 +140,11 @@ cdgit(){
     echo -n -e "\033]0;$(basename "$(pwd)")\007"
 }
 
-# Custom function for "sudo" so that we get a fun error message as a result
-sudopath="$(which sudo)"
-sudo(){
-    $sudopath true
-    local sudoSuccess=$?
-    if [ $sudoSuccess -eq 0 ] ; then
-        $sudopath $@
-    else
-        echo "sudon't"
-    fi
-}
-
-# Calls grep and passes the -i flag, to make it case insensitive
-grepi(){
-    grep -i $@
-}
-
 localUname="$(uname -a)"
-# Use gpg-agent for ssh keys
 if [[ "$(uname)" == "Darwin" ]]; then
     export HOMEBREW_NO_AUTO_UPDATE=1
     export HOMEBREW_NO_INSTALL_CLEANUP=1
-elif [[ "$localUname" = *"Linux"* && "$localUname" = *"Microsoft"* ]]; then
-    SSH_AUTH_SOCK="/mnt/c/Users/amazingant/AppData/Roaming/gnupg/S.gpg-agent.ssh"
-else
-    SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-    gpg-agent --daemon --pinentry-program /usr/bin/pinentry > /dev/null 2>&1
 fi
-export SSH_AUTH_SOCK
 
 # Alias for the logrepos script
 alias logrepos=$HOME/dev/dotfiles/logrepos.sh
@@ -458,71 +369,4 @@ dashboard(){
 # stuff, just start it back up
 if [[ "${TMUXDASHBOARD:-}" != "" ]]; then
     dashboard
-fi
-
-
-# Local function used on PentiumLappy for starting up Voltron. Useful for
-# debugging things in GDB.
-start-voltron(){
-    # This function has X stages:
-    #
-    # Stage 1 starts tmux
-    #
-    # Stage 2 configures panes based on the console size
-
-    # IF TMUX_VOLTRON isn't set yet, move to stage 1
-    if [[ "${TMUX_VOLTRON:-}" == "" ]]; then
-        export TMUX_VOLTRON_SIZE="$(stty size)"
-        # If already running under tmux, just set TMUX_VOLTRON=1 and start over
-        if [[ "${TMUX:-}" != "" ]]; then
-            export TMUX_VOLTRON=1
-            start-voltron
-
-        # Otherwise, start tmux
-        else
-            TMUX_VOLTRON=1 tmux -L tmux_voltron
-        fi
-
-    elif [[ "${TMUX_VOLTRON:-}" == "1" ]]; then
-        # System-specifics here:
-
-        # This is my home server
-        if [[ "${TMUX_VOLTRON_SIZE:-}" == "100 320" ]]; then
-            if [[ "${TMUX_PANE:-}" == "%0" ]]; then
-                if [[ "$(tmux list-panes | wc -l)" == "1" ]]; then
-                    tmux split-window -h
-                    tmux split-window -h -t "%1"
-                    tmux split-window -v -t "%1"
-                    tmux split-window -v -t "%1"
-                    tmux split-window -h -t "%3"
-                    tmux resize-pane -t "%0" -L 70
-                    tmux resize-pane -t "%2" -L 25
-                    tmux resize-pane -t "%1" -U 5
-                    tmux resize-pane -t "%4" -D 30
-                    tmux resize-pane -t "%3" -R 11
-                    voltron view disasm
-                else
-                    echo "Re-running 'start-voltron' in this tmux pane would cause additional panes to be created. Just call 'voltron view disasm' again."
-                fi
-            elif [[ "${TMUX_PANE:-}" == "%1" ]]; then
-                voltron view breakpoints
-            elif [[ "${TMUX_PANE:-}" == "%2" ]]; then
-                voltron view memory
-            elif [[ "${TMUX_PANE:-}" == "%3" ]]; then
-                voltron view backtrace
-            elif [[ "${TMUX_PANE:-}" == "%4" ]]; then
-                voltron view stack
-            elif [[ "${TMUX_PANE:-}" == "%5" ]]; then
-                voltron view registers
-            fi
-        else
-            echo "Uhh, your screen size isn't set-up yet?"
-        fi
-    fi
-}
-
-# If the shell just started and is partway through configuring a voltron
-# display, just start it back up
-if [[ "${TMUX_VOLTRON:-}" != "" ]]; then
-    start-voltron
 fi
