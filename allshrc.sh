@@ -78,7 +78,7 @@ function show_git_status() {
         fi
 
         if [[ "$branchName" != "main" ]] ; then
-            unreleasedChanges="$(git log HEAD ^origin/main --no-merges --oneline --no-show-signature 2>/dev/null | wc -l)"
+            unreleasedChanges="$(git log HEAD ^origin/main --no-merges --oneline --no-show-signature 2>/dev/null | wc -l | sed 's/ //g')"
             if [[ "$unreleasedChanges" != "0" && "$unreleasedChanges" != "" ]] ; then
                 print=1
                 declare -R3 unreleasedChanges
