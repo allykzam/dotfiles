@@ -88,3 +88,5 @@
 [diff]
     colorMoved = default
     renames = copies
+[maintenance]
+    auto = false
