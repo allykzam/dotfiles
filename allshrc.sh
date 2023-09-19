@@ -144,6 +144,13 @@ localUname="$(uname -a)"
 if [[ "$(uname)" == "Darwin" ]]; then
     export HOMEBREW_NO_AUTO_UPDATE=1
     export HOMEBREW_NO_INSTALL_CLEANUP=1
+    export HOMEBREW_BAT=1
+    export HOMEBREW_DISPLAY_INSTALL_TIMES=1
+    export HOMEBREW_NO_ANALYTICS=1
+    export HOMEBREW_NO_GITHUB_API=1
+    export HOMEBREW_NO_INSTALL_FROM_API=1
+    export HOMEBREW_NO_INSTALL_UPGRADE=1
+    export HOMEBREW_CASK_OPTS="--require-sha"
 fi
 
 # Alias for the logrepos script
