@@ -34,6 +34,7 @@ function show_git_status() {
         fi
 
         print=0
+        printReason=""
         issues=""
         if (git update-index --ignore-submodules --really-refresh > /dev/null && git diff-files --quiet --ignore-submodules && git diff-index --cached --quiet HEAD --ignore-submodules) ; then
             issues="Clean,"
