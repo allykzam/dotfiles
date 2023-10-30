@@ -68,5 +68,5 @@ git_prompt_status() {
     fi
 }
 
-PROMPT='%{$reset_color%}%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%}$(git_prompt_status)$ '
+PROMPT='%{$reset_color%}${PROMPT_PREFIX:=}%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%}$(git_prompt_status)$ '
 
