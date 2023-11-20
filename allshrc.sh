@@ -21,7 +21,7 @@ function show_git_status() {
     YELLOW='\033[1;33m'
     NC='\033[0m'
     function getStats() {
-        local dir gitDir print issues branchName upstream localChanges remoteChanges unreleasedChanges stashes MATCH MBEGIN MEND
+        local dir gitDir print printReason issues branchName upstream localChanges remoteChanges unreleasedChanges stashes MATCH MBEGIN MEND
 
         dir="$1"
         if [ -f "$dir" ] ; then
