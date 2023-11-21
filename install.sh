@@ -164,6 +164,65 @@ fi
 if echo "$unameDetails" | grep -q Darwin ; then
     echo "Disabling bash sessions, because OSX 10.11 enabled them"
     touch ~/.bash_sessions_disable
+    echo "Setting Finder to show hidden files"
+    defaults write com.apple.finder AppleShowAllFiles YES
+    echo "Setting Finder to show file extensions"
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    echo "Setting Finder to show the path bar"
+    defaults write com.apple.finder ShowPathbar -bool true
+    echo "Setting Finder to show the full unix path in the title bar"
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+    echo "Setting Finder's default view to List"
+    defaults write com.apple.finder FXPreferredViewStyle -string Nlsv
+    echo "Setting Finder to keep folders at the top of the list (like Windows Explorer)"
+    defaults write com.apple.finder _FXSortFoldersFirst -bool true
+    echo "Setting Finder's search to target the current folder by default"
+    defaults write com.apple.finder FXDefaultSearchScope -string SCcf
+    echo "Disabling Finder's auto-delete of things in the trash"
+    defaults write com.apple.finder FXRemoveOldTrashItems -bool false
+    echo "Set default file save location to on-disk (vs iCloud)"
+    defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+    echo "Set save dialogs to be expanded by default"
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    echo "Disabling .DS_Store files on network shares"
+    defaults write com.apple.desktopservice DSDontWriteNetworkStores true
+    echo "Setting title bars to show icons (this may require granting full disk access to the terminal)"
+    defaults write com.apple.universalaccess showWindowTitlebarIcons -bool true
+    echo "Setting folders on the desktop to stay on top (like the Finder change)"
+    defaults write com.apple.finder _FXSortFoldersFirstOnDesktop -bool true
+    echo "Setting dock to auto-hide"
+    defaults write com.apple.dock autohide -bool true
+    echo "Disabling recently used apps in the dock"
+    defaults write com.apple.dock show-recents -bool false
+    echo "Setting Safari to always show the full URL"
+    defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+    echo "Setting Safari to not use universal search"
+    defaults write com.apple.Safari UniversalSearchEnabled -bool false
+    echo "Setting Safari to not show search suggestions"
+    defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+    echo "Setting Safari's new tab page to about:blank"
+    defaults write com.apple.Safari HomePage -string "about:blank"
+    echo "Setting TextEdit to not default to rich text"
+    defaults write com.apple.TextEdit RichText -int 0
+    echo "Setting TextEdit to prefer plain text"
+    defaults write com.apple.TextEdit PlainTextEncoding -int 4
+    defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+    echo "Setting TextEdit's tab width to 4 spaces"
+    defaults write com.apple.TextEdit TabWidth 4
+    echo "Disabling smart quotes and emdashes"
+    defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+    defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+    echo "Setting function keys on Apple keyboards to send their F-code (F1, F2, etc.)"
+    defaults write NSGlobalDomain com.apple.keyboard fnState -bool false
+    echo "For the function keys change to take effect, you'll need to reboot."
+    echo "Disabling gamed so that Game Center isn't hitting the network constantly"
+    launchctl disable gui/501/com.apple.gamed
+    echo "Setting Parallels (assuming it's installed) to perform better when coherence mode is used"
+    defaults write "com.parallels.Parallels Desktop" "Application preferences.CoherenceOsScaling" 1
+
+    killall Finder
+    killall Dock
+    killall Safari
 fi
 
 if [ ! -d "$HOME/dev/posh-git-sh" ] ; then
