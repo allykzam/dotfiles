@@ -2,8 +2,8 @@
 # Combine this with another config at $HOME/.gitconfig for system-specifics
 [user]
     name = Alison Perez
-    email = alison@amazingant.com
-    signingkey = 5F7F02A9D0682C8814D36996388BEC273397CC44
+    email = alison@allykzam.com
+    signingkey = 98A052E9FFEF120B8BB4CB51915657B9DBC5D27A
 [init]
     defaultBranch = main
 [github]
