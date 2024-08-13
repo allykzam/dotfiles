@@ -128,7 +128,7 @@ fi
 # ls -F  -> add '/' on end of dirs, '*' on executables, etc.
 # eza -h -> add headers to the columns so we know what they are
 LSOPTS='-lahvF --time-style=long-iso --color=auto'
-EZAOPTS='-lahFb --time-style=long-iso --color=automatic'
+EZAOPTS='-lahb -F --time-style=long-iso --color=automatic'
 if [[ "$localUname" = Darwin* ]]; then
     LSOPTS='-lahvF --color=auto'
 fi
