@@ -127,14 +127,14 @@ fi
 # ls -v -> sort version numbers better?
 # ls -F -> add '/' on end of dirs, '*' on executables, etc.
 LSOPTS='-lahvF --time-style=long-iso --color=auto'
-EXAOPTS='-lahF --time-style=long-iso --color=auto'
+EZAOPTS='-lahF --time-style=long-iso --color=auto'
 if [[ "$localUname" = Darwin* ]]; then
     LSOPTS='-lahvF --color=auto'
 fi
-exaPath="$(which exa || true)"
-if [[ "$exaPath" = */exa ]]; then
-    alias ls="exa $EXAOPTS"
-    alias ll="exa $EXAOPTS | less -FX"
+ezaPath="$(which eza || true)"
+if [[ "$ezaPath" = */eza ]]; then
+    alias ls="eza $EZAOPTS"
+    alias ll="eza $EZAOPTS | less -FX"
 else
     alias ls="ls $LSOPTS"
     alias ll="ls $LSOPTS | less -FX"
