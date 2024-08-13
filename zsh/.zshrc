@@ -121,13 +121,14 @@ if [[ "$localUname" = *Linux* && "$localUname" = *"Microsoft"* ]]; then
     export SHELL=/usr/bin/zsh
 fi
 
-# ls -l -> long listing format
-# ls -a -> list everything
-# ls -h -> human-friendly sizes, via powers of 1024
-# ls -v -> sort version numbers better?
-# ls -F -> add '/' on end of dirs, '*' on executables, etc.
+# ls -l  -> long listing format
+# ls -a  -> list everything
+# ls -h  -> human-friendly sizes, via powers of 1024 - eza uses -b for this
+# ls -v  -> sort version numbers better?
+# ls -F  -> add '/' on end of dirs, '*' on executables, etc.
+# eza -h -> add headers to the columns so we know what they are
 LSOPTS='-lahvF --time-style=long-iso --color=auto'
-EZAOPTS='-lahF --time-style=long-iso --color=auto'
+EZAOPTS='-lahFb --time-style=long-iso --color=automatic'
 if [[ "$localUname" = Darwin* ]]; then
     LSOPTS='-lahvF --color=auto'
 fi
