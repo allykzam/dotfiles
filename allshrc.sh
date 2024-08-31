@@ -125,6 +125,10 @@ function show_git_status() {
 # Add these so there's a place in the home directory to put binaries
 export PATH="$HOME/.local/bin:$HOME/.local/lib:$PATH"
 
+if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 # Turn off telemetry for "dotnet" commands
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
