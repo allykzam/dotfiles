@@ -7,7 +7,10 @@ IFS=$'\n\t'
 branch="$1"
 
 currentBranch="$(git rev-parse --abbrev-ref HEAD)"
-if [[ "$currentBranch" =~ issue/.* ]] ; then
+if [[ "$currentBranch" == "master" || "$currentBranch" == "main" || "$currentBranch" == "dev" || "$currentBranch" =~ maintenance/.* ]] ; then
+    echo "Currently on a primary branch - change to the branch you want to merge and try again."
+    exit 1
+elif [[ "$currentBranch" =~ .*/.* ]] ; then
     if [ "$branch" == "master" ] ; then
         branch="$currentBranch"
         git checkout master
@@ -17,10 +20,16 @@ if [[ "$currentBranch" =~ issue/.* ]] ; then
     elif [ "$branch" == "dev" ] ; then
         branch="$currentBranch"
         git checkout dev
+    elif [[ "$branch" =~ maintenance/.* ]] ; then
+        git checkout "$branch"
+        branch="$currentBranch"
     else
         echo "Currently on $currentBranch which appears to be an issue branch, but you specified $branch which does not appear to be master/main/dev?"
         exit 1
     fi
+else
+    echo "Currently on $currentBranch and not sure what to do with it; it should look like 'issue/123' or 'your-name/add-the-thing'"
+    exit 1
 fi
 
 issue="$(basename "$branch")"
@@ -63,9 +72,13 @@ fi
 
 remote="$(git rev-parse --abbrev-ref --symbolic-full-name "$branch@{u}" | cut -d '/' -f1)"
 
-RUNNING_GIT_CLOSE=true git merge "$branch" --gpg-sign --no-edit -m "Merge \"$branch\" into \"$(git rev-parse --abbrev-ref HEAD)\"
+if [[ "$issue" =~ '^[0-9]+$' ]] ; then
+    RUNNING_GIT_CLOSE=true git merge "$branch" --gpg-sign --no-edit -m "Merge \"$branch\" into \"$(git rev-parse --abbrev-ref HEAD)\"
 
 Closes #$issue"
+else
+    RUNNING_GIT_CLOSE=true git merge "$branch" --gpg-sign --no-edit -m "Merge \"$branch\" into \"$(git rev-parse --abbrev-ref HEAD)\""
+fi
 
 git push && git branch -df  "$branch"
 git push "$remote" --delete "$branch"
