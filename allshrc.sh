@@ -156,6 +156,16 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export HOMEBREW_NO_INSTALL_FROM_API=1
     export HOMEBREW_NO_INSTALL_UPGRADE=1
     export HOMEBREW_CASK_OPTS="--require-sha"
+
+    heic() {
+        (
+            cd ~/Downloads
+            for i in *.heic(:r) ;
+            do
+                sips -s format jpeg "$i.heic" --out "$i.jpg"
+            done
+        )
+    }
 fi
 
 # Alias for the logrepos script
