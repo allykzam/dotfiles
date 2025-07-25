@@ -51,6 +51,7 @@
     rel = !git fetch && git relnotes && git push -u
     endrel = !~/.config/git/end-release.sh
     issue = !~/.config/git/issue-cmd.sh
+    authors = !git log --pretty="%an%n%cn" --no-show-signature HEAD | sort -u
 [color]
     ui = auto
 [pull]
